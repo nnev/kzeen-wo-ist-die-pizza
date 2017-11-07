@@ -1,0 +1,14 @@
+h2 = t("basket.no_order.title.with#{@nick.blank? ? 'out' : ''}_nick", nick: @nick)
+
+- if @basket.editable?
+  p
+    ' basket.no_order.text
+    ' basket.no_order.selected_shop
+    abbr title=@basket.r_branch.address =@basket.r_branch.name
+
+
+div.button-overflow
+  - if @basket.editable?
+    => render 'button/place_new_order', primary: true
+
+  = render 'nick/button'

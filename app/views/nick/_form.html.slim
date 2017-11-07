@@ -1,0 +1,18 @@
+= form_tag(set_nick_path, method: :patch, class: 'modal fade text-left', id: 'nickForm', role: 'dialog', tabindex: '-1', aria_hidden: 'true')
+  .modal-dialog.modal-sm
+    .modal-content
+      .modal-header
+        h4.modal-title nick.form.title
+        button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+
+      .modal-body.text-right
+        datalist id="nicks"
+          - if @basket
+            - @basket.orders.map(&:nick).uniq.each do |nick|
+              option value=nick
+
+        .form-group>
+          input.form-control> required="required" autocomplete="off" list="nicks" name="nick" placeholder=t('nick.form.placeholder')
+
+        button.btn.btn-default> type="button" data-dismiss="modal" aria-hidden="true" nick.form.abort
+        button.btn.btn-primary data-disable-with=t('nick.form.setting_nick') type="submit" nick.form.set_nick

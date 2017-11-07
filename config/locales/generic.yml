@@ -1,0 +1,34 @@
+en:
+  name: HipsterPizza
+
+  mode:
+    invalid_or_missing: 'Missing or invalid mode. HipsterPizza uses cookies to control the flow when showing external sites. Please ensure you have cookies enabled.'
+  time:
+    future: 'in %{date}'
+    past: '%{date} ago'
+    date: 'Date'
+    never: 'never'
+
+
+  toggle_nav: 'Toggle Navigation'
+  other: 'Other'
+  please_wait: '…please wait…'
+
+  toggle_failed: 'Could not carry out your actions for unknown reasons. Ask a developer.'
+
+de:
+  name: HipsterPizza
+
+  mode:
+    invalid_or_missing: 'Fehlender oder ungültiger Modus. HipsterPizza nutzt Cookies zur Steuerung auf externen Seiten. Bitte stelle sicher, dass Du Cookies aktiviert hast.'
+  time:
+    future: 'in %{date}'
+    past: 'vor %{date}'
+    date: 'Datum'
+    never: 'nie'
+
+  toggle_nav: 'Navigation auf/zuklappen'
+  other: 'Sonstige'
+  please_wait: '…bitte warten…'
+
+  toggle_failed: 'Konnte die gewünschte Aktion nicht durchführen. Frage einen Entwickler.'

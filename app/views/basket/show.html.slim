@@ -1,0 +1,8 @@
+.container
+  = render 'shared/flash'
+
+  #reOrder
+  - if @order
+    = render 'my_order'
+  - else
+    = render 'no_order'
