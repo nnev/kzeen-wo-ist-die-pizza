@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).on('turbolinks:load', function() {
   function showPricesForSize(evt) {
     var sizeId = evt.target.value;
     var modal = $(evt.target).closest('.modal-content');

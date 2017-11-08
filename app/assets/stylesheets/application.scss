@@ -57,6 +57,10 @@ th {
   }
 }
 
+// generic
+.price {
+  white-space: nowrap;
+}
 
 // menu
 .sidemenu {
@@ -68,11 +72,3 @@ th {
     padding: 0.25rem 0.5rem;
   }
 }
-
-// #scroll-spy-target {
-//   width: 15rem;
-
-//   .list-group-item {
-//     padding: 0.375rem 0.625rem;
-//   }
-// }
