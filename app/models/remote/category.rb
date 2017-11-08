@@ -1,3 +1,7 @@
+# Examples:
+# https://delivery-app.app-smart.services/api2.5/D4LQjy8fNbse392x/get-categories/1184
+# https://delivery-app.app-smart.services/api2.5/D4LQjy8fNbse392x/get-products-of-category/1184/20138
+
 class Remote::Category
   @raw = Concurrent::Map.new
 
@@ -21,7 +25,15 @@ class Remote::Category
   end
 
   def products
-    Product.all(branch_id: @branch_id, category_id: @category_id)
+    con_map = Remote::Category.instance_variable_get(:@raw)
+    # note: we don't care about double-reads on race-conditions
+    json = con_map.fetch_or_store("bra#{@branch_id}_cat#{@category_id}") do
+      JsonCache.get("get-products-of-category/#{@branch_id}/#{@category_id}")
+    end
+
+    json['d'].pluck('id').map do |xx|
+      ::Remote::Product.new(branch_id: @branch_id, product_id: xx)
+    end
   end
 
   def description

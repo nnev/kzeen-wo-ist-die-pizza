@@ -1,3 +1,4 @@
+# Example: https://delivery-app.app-smart.services/api2.5/D4LQjy8fNbse392x/get-branches
 class Remote::Branch
   @raw = nil
   @main = nil
@@ -27,7 +28,7 @@ class Remote::Branch
   end
 
   def categories
-    Category.all(branch_id: @branch_id)
+    ::Remote::Category.all(branch_id: @branch_id)
   end
 
   def address

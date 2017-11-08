@@ -1,0 +1,18 @@
+- @product.sizes.each.with_index do |size, index|
+  div.form-check.size-selector
+    label.form-check-label
+      input.form-check-input type="radio" name="size" value=size[:size_id] checked=index==0
+      = size[:name]
+      div.float-right = €(size[:price])
+
+- if @product.extra_ingredients.any?
+  hr
+  - @product.extra_ingredients.each do |extra|
+    div.form-check.form-check-inline
+      label.form-check-label title=extra[:description]
+        input.form-check-input type="checkbox" name="extra_ingredients" value=extra[:name]
+        = extra[:name]
+        - extra[:prices].each do |size_id, price|
+          span class="price-#{size_id}"
+          |  +
+          = €(price)

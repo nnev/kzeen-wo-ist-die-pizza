@@ -15,3 +15,15 @@
  */
 
 @import "bootstrap";
+
+.size-selector {
+  padding: 5px;
+
+  &:nth-child(even) {
+    background: #fafafa;
+  }
+
+  .form-check-label {
+    width: 100%;
+  }
+}

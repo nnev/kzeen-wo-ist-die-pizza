@@ -1,0 +1,8 @@
+tr
+  td
+    = product.name
+    br
+    small = product.description
+  td = €(product.price)
+  td
+    button.btn.btn-outline-primary type="button" data-toggle="modal" data-target="#productAdd" data-product-id=product.product_id data-product-name=product.name

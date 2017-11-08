@@ -1,0 +1,13 @@
+div#productAdd.modal.fade tabindex="-1" role="dialog" aria-hidden="true"
+  div.modal-dialog role="document"
+    div.modal-content
+      div.modal-header
+        h5.modal-title
+          span#productAddHeader
+          button.close type="button" data-dismiss="modal"
+            span aria-hidden="true" &times;
+      div#productAddBody.modal-body data-loading=I18n.t('shop.add_dialog.loading')
+
+      div.modal-footer
+        button.btn.btn-secondary type="button" data-dismiss="modal" shop.add_dialog.cancel
+        button.btn.btn-primary type="button" shop.add_dialog.add_to_basket

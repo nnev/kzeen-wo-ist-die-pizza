@@ -1,0 +1,13 @@
+en:
+  shop:
+    add_dialog:
+      cancel: Cancel
+      add_to_basket: Add To Basket
+      loading: 🍕 kzeen is loading…
+
+en:
+  shop:
+    add_dialog:
+      cancel: Abbrechen
+      add_to_basket: In den Warenkorb
+      loading: 🍕 kzeen lädt…

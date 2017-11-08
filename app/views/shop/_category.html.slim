@@ -1,0 +1,7 @@
+tr
+  th colspan="4" = category.name
+- if category.description.present?
+  tr
+    td colspan="4" = category.description
+
+= render partial: 'shop/product', collection: category.products, as: :product

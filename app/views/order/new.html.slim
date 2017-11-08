@@ -1,0 +1,10 @@
+- categories = Remote::Branch.main.categories
+
+= form_tag(order_index_path, method: :post)
+
+= render 'shop/add_dialog'
+
+.table-responsive
+  table.table
+    = render partial: 'shop/category', collection: categories, as: :category
+

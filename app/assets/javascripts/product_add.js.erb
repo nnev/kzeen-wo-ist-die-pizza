@@ -1,0 +1,14 @@
+$(document).ready(function() {
+  $('#productAdd').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var productId = button.data('product-id');
+    var modal = $(this);
+    var body = modal.find('#productAddBody');
+
+    modal.find('#productAddHeader').text(button.data('product-name'));
+    body.text(body.data('loading'));
+    body.load('/product/' + productId);
+
+    // TODO: need to somehow only show the price that matches selected size
+  })
+});

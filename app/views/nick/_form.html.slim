@@ -8,7 +8,7 @@
       .modal-body.text-right
         datalist id="nicks"
           - if @basket
-            - @basket.orders.map(&:nick).uniq.each do |nick|
+            - @basket.orders.pluck(:nick).each do |nick|
               option value=nick
 
         .form-group>
