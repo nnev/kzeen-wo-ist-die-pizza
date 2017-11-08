@@ -1,7 +1,7 @@
 tr
-  th colspan="4" = category.name
-- if category.description.present?
-  tr
-    td colspan="4" = category.description
+  th colspan="3" id="category-#{category.category_id}"
+    = category.name
+    - if category.description.present?
+      small = category.description
 
 = render partial: 'shop/product', collection: category.products, as: :product

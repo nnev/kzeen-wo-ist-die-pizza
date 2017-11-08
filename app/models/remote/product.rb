@@ -22,10 +22,6 @@ class Remote::Product
     @branch_id = branch_id
     @product_id = product_id
     @data = raw['d']
-
-    # TODO:
-    # basic_ingredients_groups / ingredient_basics_with_details
-    # are both needed?
   end
 
   attr_reader :product_id
@@ -52,15 +48,43 @@ class Remote::Product
     end
   end
 
-  def extra_ingredients
-    ingred = @data['ingredient_extras_with_details'].values
-    ingred.sort_by! { |xx| remove_lowercase_words(xx['name']) }
+  def basic_ingredients # TODO: fugly
+    @data['basic_ingredients_groups'].map do |group_id, group|
+      if group['max_quan'] != group['free_quan']
+        # Note: we ignore min_quan. Neither does the official web, by the way :)
+        raise 'Different amounts of basic ingredients voodoo is not implemented'
+      end
 
+      ingreds = group['ingredients'].map do |ingred_id, ingred|
+        if ingred['price_diff'].values.pluck('price').any? { |p| p != 0.0 }
+          raise 'Cannot handle base ingredients that cost money'
+        end
+
+        details = @data['ingredient_basics_with_details'][ingred_id] || {}
+        desc = desc_if_different(details['description'], ingred['name'])
+        {
+          ingred_id:   ingred_id,
+          name:        ingred['name'],
+          description: desc,
+        }
+      end
+
+      {
+        group_id:      group_id,
+        ingreds:       sort_by_name!(ingreds),
+        allowed_count: group['free_quan'],
+        description:   group['description']
+      }
+    end
+  end
+
+  def extra_ingredients
+    ingred = sort_by_name!(@data['ingredient_extras_with_details'].values)
     ingred.map do |xx|
       {
         name:    xx['name'],
-        details: xx['description'] == xx['name'] ? nil : xx['description'],
-        prices:  Hash[xx['price_of_ingredient_for_size'].map do |size_id, value|
+        details: desc_if_different(xx['description'], xx['name']),
+        prices:  Hash[xx['price_of_ingredient_for_size'].map do |size_id, value| # TODO: fugly
           [size_id, value['p']]
         end]
       }
@@ -69,7 +93,16 @@ class Remote::Product
 
   private
 
+  def sort_by_name!(arr)
+    arr.sort_by! { |xx| remove_lowercase_words(xx['name'] || xx[:name]) }
+    arr
+  end
+
   def remove_lowercase_words(string)
     string.scan(/\p{Upper}[^\s]+/).join(' ')
+  end
+
+  def desc_if_different(desc, name)
+    desc == name ? nil : desc
   end
 end

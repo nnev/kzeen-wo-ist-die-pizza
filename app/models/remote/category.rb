@@ -36,6 +36,12 @@ class Remote::Category
     end
   end
 
+  attr_reader :category_id
+
+  def picture_url
+    @data['picurl']&.sub('http://', 'https://')
+  end
+
   def description
     @data['description']
   end

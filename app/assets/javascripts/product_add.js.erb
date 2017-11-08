@@ -1,4 +1,35 @@
 $(document).ready(function() {
+  function showPricesForSize(evt) {
+    var sizeId = evt.target.value;
+    var modal = $(evt.target).closest('.modal-content');
+
+    modal.find('.price:not(.price-'+sizeId+')').addClass('hidden');
+    modal.find('.price-'+sizeId).removeClass('hidden');
+  }
+
+  function calculateTotal(evt) {
+    var modal = $(evt.target).closest('.modal-content');
+
+    var selectors = [
+      // fields with direct price on them, e.g. size selectors
+      'input:checked[data-price]:not(.hidden)',
+      // when there's only one size
+      'input[type=hidden][data-price]',
+      // fields that have the price in a sibling, e.g. checkboxes
+      'input:checked ~ [data-price]:not(.hidden)',
+      // fields that have the price in a child, e.g. ??
+      // 'input:checked [data-price]:not(.hidden)',
+    ]
+    var selected = modal.find(selectors.join());
+
+    var prices = selected.map(function() { return $(this).data('price') }).toArray();
+    var total = prices.reduce(function(acc, val) { return acc + val }, 0);
+    var formatted = total.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' });
+
+    modal.find('#total-price').text(formatted);
+  }
+
+
   $('#productAdd').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var productId = button.data('product-id');
@@ -7,8 +38,11 @@ $(document).ready(function() {
 
     modal.find('#productAddHeader').text(button.data('product-name'));
     body.text(body.data('loading'));
-    body.load('/product/' + productId);
+    body.load('/product/' + productId, function() {
+      modal.find('.size-selector input').on('change', showPricesForSize);
+      modal.find('input').on('change', calculateTotal);
 
-    // TODO: need to somehow only show the price that matches selected size
+      modal.find('input').first().trigger('change');
+    });
   })
 });

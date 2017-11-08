@@ -4,7 +4,23 @@
 
 = render 'shop/add_dialog'
 
-.table-responsive
-  table.table
-    = render partial: 'shop/category', collection: categories, as: :category
+/ div#scroll-spy-target.list-group.fixed-top
+/   - categories.each do |cat|
+/     a.list-group-item.list-group-item-action href="#category-#{cat.category_id}" = cat.name
+
+
+
+
+
+.container
+  .row
+    .col-2.sidemenu
+      ul#scroll-spy-target.nav.flex-column.nav-pills.sticky-top
+        - categories.each do |cat|
+          li.nav-item
+            a.nav-link href="#category-#{cat.category_id}" = cat.name
+    .col
+      .table-responsive
+        table.table
+          = render partial: 'shop/category', collection: categories, as: :category
 
