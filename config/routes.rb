@@ -3,7 +3,10 @@ Rails.application.routes.draw do
 
   patch 'set_nick', to: 'tool#set_nick'
 
-  resources :order, except: :index
+  resources :order, only: [:new] do
+    post :add_item, on: :collection
+    post :remove_item, on: :collection
+  end
   resources :product, only: :show
 
   root to: 'basket#show'

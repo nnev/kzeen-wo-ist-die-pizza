@@ -103,7 +103,7 @@ th {
 
 // remove whitespace on phones to make the table as wide as the body
 @include media-breakpoint-down(sm) {
-  .row .col {
+  .row .col-sm {
     padding: 0;
   }
 }

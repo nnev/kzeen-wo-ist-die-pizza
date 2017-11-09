@@ -1,7 +1,7 @@
 $(document).on('turbolinks:load', function() {
   function showPricesForSize(evt) {
-    var sizeId = evt.target.value;
     var modal = $(evt.target).closest('.modal-content');
+    var sizeId = modal.find('input[name=size]:checked').val();
 
     modal.find('.price:not(.price-'+sizeId+')').addClass('hidden');
     modal.find('.price-'+sizeId).removeClass('hidden');
@@ -29,20 +29,53 @@ $(document).on('turbolinks:load', function() {
     modal.find('#total-price').text(formatted);
   }
 
+  function addToBasket(evt) {
+    var modal = $(evt.target).closest('.modal');
+    var form = modal.find('#productAddBody');
+    var submit = modal.find('.btn-primary');
+
+    submit.addClass('disabled');
+
+    var url = form.attr('action');
+    var data = form.serialize();
+    $.post(url, data)
+    .done(function(data, textStatus, jqXHR) {
+      modal.modal('hide');
+      $('#basket').html(jqXHR.responseText);
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+      alert('OMG Unexpected error!\n\nDetails have been printed to the console.\n\nPreview:\n' + jqXHR.responseText);
+      console.log(jqXHR);
+      console.log(jqXHR.responseJSON);
+      submit.removeClass('disabled');
+    });
+
+    // Too complicated, and code has to be duplicated within BE.
+    // var text = form
+    //   .find('input:checked').closest('label') // get description from label
+    //   .contents().filter(function(){ return this.nodeType == 3; }) // only own text
+    //   .map(function(x) { return this.textContent; }).toArray(); // cleanup
+    // var select = form.find()
+  }
+
 
   $('#productAdd').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var productId = button.data('product-id');
     var modal = $(this);
     var body = modal.find('#productAddBody');
+    var submit = modal.find('.btn-primary');
 
     modal.find('#productAddHeader').text(button.data('product-name'));
     body.text(body.data('loading'));
+    submit.addClass('disabled');
+    submit.off('click').click(addToBasket);
+
     body.load('/product/' + productId, function() {
       modal.find('.size-selector input').on('change', showPricesForSize);
       modal.find('input').on('change', calculateTotal);
 
-      modal.find('input').first().trigger('change');
+      modal.find('input').trigger('change');
+      submit.removeClass('disabled');
     });
   })
 });

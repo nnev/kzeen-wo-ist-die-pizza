@@ -1,3 +1,5 @@
+input type="hidden" name="product_id" value=@product.product_id
+
 - if @product.sizes.count >= 2
   - @product.sizes.each.with_index do |size, index|
     div.form-check.size-selector
@@ -11,17 +13,17 @@
   input type="hidden" name="size" value=size[:size_id] data-price=size[:price]
 
 - @product.basic_ingredients.each do |group|
-  label for="basic_ingred_#{group[:group_id]}_0" = group[:description]
+  label for="basic_ingred[#{group[:group_id]}][0]" = group[:description]
   - group[:allowed_count].times do |i|
     - if group[:ingreds].size >= 5
-      select.form-control name="basic_ingred_#{group[:group_id]}_#{i}"
+      select.form-control name="basic_ingred[#{group[:group_id]}][#{i}]"
         - group[:ingreds].each do |ingred|
           option value=ingred[:ingred_id] = ingred[:name]
     - else
       - group[:ingreds].each.with_index do |ingred, index|
         div.form-check
           label.form-check-label title=ingred[:description]
-            input.form-check-input type="radio" name="basic_ingred_#{group[:group_id]}_#{i}" value=ingred[:ingred_id] checked=index==0
+            input.form-check-input type="radio" name="basic_ingred[#{group[:group_id]}][#{i}]" value=ingred[:ingred_id] checked=index==0
             = ingred[:name]
   hr
 
@@ -30,7 +32,7 @@
     - @product.extra_ingredients.each do |extra|
       div.form-check
         label.form-check-label title=extra[:description]
-          input.form-check-input type="checkbox" name="extra_ingredients" value=extra[:name]
+          input.form-check-input type="checkbox" name="extra_ingred[]" value=extra[:ingred_id]
           = extra[:name]
           - extra[:prices].each do |size_id, price|
             div.price.float-right class="price-#{size_id}" data-price=price

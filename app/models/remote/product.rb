@@ -3,6 +3,8 @@
 # https://delivery-app.app-smart.services/api2.5/D4LQjy8fNbse392x/get-single-product/1184/184488
 # Basic ingredients:
 # https://delivery-app.app-smart.services/api2.5/D4LQjy8fNbse392x/get-single-product/1184/184470
+# Weird menu:
+# https://delivery-app.app-smart.services/api2.5/D4LQjy8fNbse392x/get-single-product/1184/184465
 
 class Remote::Product
   @raw = Concurrent::Map.new
@@ -34,7 +36,7 @@ class Remote::Product
     @data['name']
   end
 
-  def price
+  def min_price
     # Note: lowest_price* fields given on the root level refer to either the last
     # or the maximum price. So instead we have to go through the sizes.
     # @data['lowest_price_delivery'] || @data['lowest_price'] || @data['lowest_price_selfcollect']
@@ -48,10 +50,15 @@ class Remote::Product
     end
   end
 
+  def named_size(selection)
+    return nil if self.sizes.size <= 1
+    self.sizes.detect { |xx| xx[:size_id] == selection[:size] }[:name]
+  end
+
   def basic_ingredients # TODO: fugly
     @data['basic_ingredients_groups'].map do |group_id, group|
       if group['max_quan'] != group['free_quan']
-        # Note: we ignore min_quan. Neither does the official web, by the way :)
+        # Note: we ignore min_quan. So does the official web, by the way :)
         raise 'Different amounts of basic ingredients voodoo is not implemented'
       end
 
@@ -63,14 +70,14 @@ class Remote::Product
         details = @data['ingredient_basics_with_details'][ingred_id] || {}
         desc = desc_if_different(details['description'], ingred['name'])
         {
-          ingred_id:   ingred_id,
+          ingred_id:   ingred_id.to_i,
           name:        ingred['name'],
           description: desc,
         }
       end
 
       {
-        group_id:      group_id,
+        group_id:      group_id.to_i,
         ingreds:       sort_by_name!(ingreds),
         allowed_count: group['free_quan'],
         description:   group['description']
@@ -78,17 +85,50 @@ class Remote::Product
     end
   end
 
+  def basic_ingredient_ids
+    @data['basic_ingredients_groups'].keys.map(&:to_i)
+  end
+
+  def named_basic_ingredients(selection)
+    selection[:basic_ingred].map do |group_id, ingred_ids|
+      ingreds = @data['basic_ingredients_groups'][group_id.to_s]['ingredients']
+      ingred_ids.map do |ingred_id|
+        ingreds[ingred_id.to_s]['name']
+      end
+    end
+  end
+
   def extra_ingredients
-    ingred = sort_by_name!(@data['ingredient_extras_with_details'].values)
-    ingred.map do |xx|
+    ingred = @data['ingredient_extras_with_details'].map do |ingred_id, xx|
       {
-        name:    xx['name'],
-        details: desc_if_different(xx['description'], xx['name']),
-        prices:  Hash[xx['price_of_ingredient_for_size'].map do |size_id, value| # TODO: fugly
+        ingred_id: ingred_id.to_i,
+        name:      xx['name'],
+        details:   desc_if_different(xx['description'], xx['name']),
+        prices:    Hash[xx['price_of_ingredient_for_size'].map do |size_id, value| # TODO: fugly
           [size_id, value['p']]
         end]
       }
     end
+    sort_by_name!(ingred)
+  end
+
+  def extra_ingredient_ids
+    @data['ingredient_extras_with_details'].keys.map(&:to_i)
+  end
+
+  def named_extra_ingredients(selection)
+    xx = selection[:extra_ingred].map(&:to_s)
+    @data['ingredient_extras_with_details'].slice(*xx).values.pluck('name')
+  end
+
+  def price(selection)
+    base = self.sizes.detect { |xx| xx[:size_id] == selection[:size] }[:price]
+
+    xx = selection[:extra_ingred].map(&:to_s)
+    extras = @data['ingredient_extras_with_details'].slice(*xx).values
+    cost = extras.pluck('price_of_ingredient_for_size').pluck(selection[:size].to_s).pluck('p')
+
+    base + cost.sum
   end
 
   private

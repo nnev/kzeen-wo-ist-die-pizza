@@ -1,0 +1,4 @@
+- unless @nick.present?
+  .auto-ask
+    = render 'nick/form'
+    script $('#nickForm').modal('show').on('hide.bs.modal', function() { return false; });

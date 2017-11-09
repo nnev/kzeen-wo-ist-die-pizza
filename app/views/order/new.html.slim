@@ -1,12 +1,10 @@
 - categories = Remote::Branch.main.categories
 
-= form_tag(order_index_path, method: :post)
-
-= render 'shop/add_dialog'
+= render 'nick/auto_ask'
 
 .container
   .row
-    .col-12.topmenu.d-block.d-md-none.mt-4
+    .col-sm-12.topmenu.d-block.d-md-none.mt-4
       .dropdown.show
         a#dropdownMenuLink.btn.btn-secondary.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" style="width:100%" shop.menu.dropdown_call_to_action
         .dropdown-menu aria-labelledby="dropdownMenuButton"
@@ -14,13 +12,17 @@
             a.dropdown-item data-turbolinks="false" href="#category-#{cat.category_id}" = cat.name
 
   .row
-    .col-2.sidemenu.d-none.d-md-block
+    .col-sm-2.sidemenu.d-none.d-md-block
       ul#scroll-spy-target.nav.flex-column.nav-pills.sticky-top
         - categories.each do |cat|
           li.nav-item
             a.nav-link data-turbolinks="false" href="#category-#{cat.category_id}" = cat.name
-    .col
+    .col-sm
       .table-responsive.product-list
         table.table
           = render partial: 'shop/category', collection: categories, as: :category
 
+    #basket.col-sm-2
+      =  render partial: 'show_basket'
+
+= render 'shop/add_dialog'

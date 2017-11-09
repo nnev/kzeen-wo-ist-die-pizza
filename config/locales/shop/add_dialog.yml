@@ -4,6 +4,7 @@ en:
       cancel: Cancel
       add_to_basket: Add To Basket
       loading: 🍕 kzeen is loading…
+      insta_order: Your order will be added to global basket immediately.
 
 de:
   shop:
@@ -11,3 +12,4 @@ de:
       cancel: Abbrechen
       add_to_basket: In den Warenkorb
       loading: 🍕 kzeen lädt…
+      insta_order: Deine Bestellung wird sofort zum Gesamt-Warenkorb hinzugefügt.

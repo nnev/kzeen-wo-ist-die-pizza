@@ -3,7 +3,35 @@ class OrderController < ApplicationController
     @basket = Basket.current_or_create
   end
 
-  def new
+  before_action :find_or_init_order
 
+  def new
+  end
+
+  def add_item
+    @order.add_item(permitted_params)
+    if @order.save
+      show_basket
+    else
+      render status: :bad_request, json: @order.errors
+    end
+  end
+
+  def remove_item
+
+  end
+
+  def show_basket
+    render partial: 'show_basket'
+  end
+
+  private
+
+  def find_or_init_order
+    @order = Order.find_or_initialize_by(nick: @nick, basket: @basket)
+  end
+
+  def permitted_params
+    params.permit(:product_id, :size, extra_ingred: [], basic_ingred: {})
   end
 end
