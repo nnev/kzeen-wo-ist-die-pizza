@@ -172,3 +172,8 @@ th {
   position: relative;
   top: -4rem;
 }
+
+// no idea why not there by default??
+.disabled {
+  pointer-events: none;
+}

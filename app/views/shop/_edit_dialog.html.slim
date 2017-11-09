@@ -1,0 +1,16 @@
+div#productEdit.modal.fade tabindex="-1" role="dialog" aria-hidden="true"
+  div.modal-dialog.modal-lg role="document"
+    div.modal-content
+      div.modal-header
+        h5.modal-title
+          span#productEditHeader
+        button.close type="button" data-dismiss="modal"
+          span aria-hidden="true" &times;
+
+      div.modal-body
+        form#productEditBody data-loading=I18n.t('shop.add_dialog.loading')
+
+      div.modal-footer
+        button.btn.btn-danger.mr-auto type="button" data-dismiss="modal" shop.edit_dialog.remove
+        button.btn.btn-secondary type="button" data-dismiss="modal" shop.edit_dialog.cancel
+        button.btn.btn-primary type="button" shop.edit_dialog.update

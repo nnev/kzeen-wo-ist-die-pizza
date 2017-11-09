@@ -3,9 +3,11 @@ Rails.application.routes.draw do
 
   patch 'set_nick', to: 'tool#set_nick'
 
-  resources :order, only: [:new] do
-    post :add_item, on: :collection
-    post :remove_item, on: :collection
+  resource :order, only: [:show], controller: :order do
+    post   'item/create', to: 'order#item_create'
+    get    'item/:index', to: 'order#item_show',  as: :item
+    patch  'item/:index', to: 'order#item_update'
+    delete 'item/:index', to: 'order#item_destroy'
   end
   resources :product, only: :show
 

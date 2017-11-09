@@ -9,9 +9,9 @@ div#basket.sticky-top
     small order.show_basket.explain
 
     ul
-      - @order.order.each do |item|
+      - @order.order.each.with_index do |item, index|
         - prod = ::Remote::Product.new(branch_id: @order.branch_id, product_id: item[:product_id])
-        li
+        li data-path=item_order_path(index: index) data-toggle="modal" data-target="#productEdit" data-product-id=item[:product_id] data-select=item.to_query data-product-name=prod.name
           strong
             = prod.name
             span = €(prod.price(item))

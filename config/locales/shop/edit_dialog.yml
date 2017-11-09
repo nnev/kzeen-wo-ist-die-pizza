@@ -1,0 +1,13 @@
+en:
+  shop:
+    edit_dialog:
+      cancel: Cancel
+      update: Change
+      remove: Remove
+
+de:
+  shop:
+    edit_dialog:
+      cancel: Abbrechen
+      update: Ändern
+      remove: Entfernen

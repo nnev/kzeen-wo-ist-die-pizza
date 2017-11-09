@@ -5,10 +5,10 @@ class OrderController < ApplicationController
 
   before_action :find_or_init_order
 
-  def new
+  def show
   end
 
-  def add_item
+  def item_create
     @order.add_item(permitted_params)
     if @order.save
       show_basket
@@ -17,7 +17,11 @@ class OrderController < ApplicationController
     end
   end
 
-  def remove_item
+  def item_destroy
+
+  end
+
+  def item_update
 
   end
 

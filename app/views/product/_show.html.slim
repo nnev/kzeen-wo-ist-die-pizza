@@ -4,7 +4,7 @@ input type="hidden" name="product_id" value=@product.product_id
   - @product.sizes.each.with_index do |size, index|
     div.form-check.size-selector
       label.form-check-label
-        input.form-check-input type="radio" name="size" value=size[:size_id] data-price=size[:price] checked=index==0
+        input.form-check-input type="radio" name="size" value=size[:size_id] data-price=size[:price] checked=(@size ? @size == size[:size_id] : index==0)
         = size[:name]
         div.float-right = €(size[:price])
   hr
@@ -18,12 +18,14 @@ input type="hidden" name="product_id" value=@product.product_id
     - if group[:ingreds].size >= 5
       select.form-control name="basic_ingred[#{group[:group_id]}][#{i}]"
         - group[:ingreds].each do |ingred|
-          option value=ingred[:ingred_id] = ingred[:name]
+          - selected = @basic_ingred&.dig(group[:group_id], i) == ingred[:ingred_id]
+          option value=ingred[:ingred_id] selected=selected = ingred[:name]
     - else
       - group[:ingreds].each.with_index do |ingred, index|
+        - selected = @basic_ingred&.dig(group[:group_id], i) == ingred[:ingred_id]
         div.form-check
           label.form-check-label title=ingred[:description]
-            input.form-check-input type="radio" name="basic_ingred[#{group[:group_id]}][#{i}]" value=ingred[:ingred_id] checked=index==0
+            input.form-check-input type="radio" name="basic_ingred[#{group[:group_id]}][#{i}]" value=ingred[:ingred_id] checked=(@basic_ingred ? selected : index==0)
             = ingred[:name]
   hr
 
@@ -32,7 +34,7 @@ input type="hidden" name="product_id" value=@product.product_id
     - @product.extra_ingredients.each do |extra|
       div.form-check
         label.form-check-label title=extra[:description]
-          input.form-check-input type="checkbox" name="extra_ingred[]" value=extra[:ingred_id]
+          input.form-check-input type="checkbox" name="extra_ingred[]" value=extra[:ingred_id] checked=@extra_ingred.include?(extra[:ingred_id])
           = extra[:name]
           - extra[:prices].each do |size_id, price|
             div.price.float-right class="price-#{size_id}" data-price=price
