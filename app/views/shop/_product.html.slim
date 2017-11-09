@@ -3,7 +3,7 @@ tr
     = product.name
     - if product.description.present?
       br
-      small = product.description
+      small.text-secondary = product.description
   td.price = €(product.min_price)
   td
     button.btn.btn-outline-primary type="button" data-toggle="modal" data-target="#productAdd" data-product-id=product.product_id data-product-name=product.name +

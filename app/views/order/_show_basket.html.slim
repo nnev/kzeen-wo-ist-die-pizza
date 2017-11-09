@@ -1,5 +1,7 @@
 div#basket.sticky-top
-  h3 order.show_basket.headline
+  h3
+    ' order.show_basket.headline
+    span = €(@order.total)
 
   - if @order.order.none?
     small order.show_basket.empty
@@ -14,15 +16,15 @@ div#basket.sticky-top
             = prod.name
             span = €(prod.price(item))
           - if prod.named_size(item).present?
-            ul
+            ul.text-secondary
               li = prod.named_size(item)
 
           - if item[:basic_ingred].any?
-            ol
+            ol.text-secondary
               - prod.named_basic_ingredients(item).each do |names|
                 li = names.join(', ')
 
           - if item[:extra_ingred].any?
-            ul
+            ul.text-secondary
               - prod.named_extra_ingredients(item).each do |name|
                 li = name

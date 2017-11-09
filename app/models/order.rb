@@ -46,4 +46,11 @@ class Order < ApplicationRecord
 
     self.order << new_order
   end
+
+  def total
+    order.map do |item|
+      prod = ::Remote::Product.new(branch_id: branch_id, product_id: item[:product_id])
+      prod.price(item)
+    end.sum
+  end
 end

@@ -115,6 +115,11 @@ th {
 
   h3 {
     margin-bottom: $spacer * 0.2;
+
+    span {
+      font-weight: normal;
+      float: right;
+    }
   }
 
   small {
