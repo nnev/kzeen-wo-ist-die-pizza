@@ -73,7 +73,7 @@ th {
 // menu
 .sidemenu {
   ul {
-    padding-top: 2rem;
+    padding-top: $spacer * 1.7;
   }
 
   .nav-link {
@@ -105,5 +105,38 @@ th {
 @include media-breakpoint-down(sm) {
   .row .col-sm {
     padding: 0;
+  }
+}
+
+
+// sidebar basket
+.col-sm-2 #basket {
+  padding-top: $spacer * 1.7;
+
+  h3 {
+    margin-bottom: $spacer * 0.2;
+  }
+
+  small {
+    display: block;
+  }
+
+  > ul {
+    list-style-type: none;
+    padding-left: 0;
+
+    > li {
+      margin-top: $spacer;
+
+      span {
+        float: right;
+        font-weight: normal;
+      }
+    }
+
+    ol, ul {
+      font-size: 80%;
+      padding-left: $spacer * 1.5;
+    }
   }
 }
