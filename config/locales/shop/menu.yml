@@ -1,0 +1,9 @@
+en:
+  shop:
+    menu:
+      dropdown_call_to_action: Select Category
+
+de:
+  shop:
+    menu:
+      dropdown_call_to_action: Kategorie wählen

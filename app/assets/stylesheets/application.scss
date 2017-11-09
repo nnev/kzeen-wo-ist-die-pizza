@@ -46,6 +46,14 @@ select.form-control + select.form-control {
   display: none;
 }
 
+// this allows smooth scrolling on the modal windows on iOS. They say this breaks
+// scrolling there, but I can't reproduce it. Both webkit's and boostrap's bugs
+// are still open at the time of writing: https://github.com/twbs/bootstrap/issues/17695
+.modal {
+  -webkit-overflow-scrolling: touch;
+}
+
+
 
 th {
   padding-top: 2rem !important;
@@ -70,5 +78,32 @@ th {
 
   .nav-link {
     padding: 0.25rem 0.5rem;
+  }
+}
+
+.topmenu {
+  .dropdown-menu {
+    // save a bit of space from the default 8px
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+
+  .dropdown-item {
+    // save a bit of space from the default 4px
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+}
+
+// product table
+
+.product-list table tbody tr:first-child th {
+  border-top: 0;
+}
+
+// remove whitespace on phones to make the table as wide as the body
+@include media-breakpoint-down(sm) {
+  .row .col {
+    padding: 0;
   }
 }

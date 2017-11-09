@@ -6,13 +6,21 @@
 
 .container
   .row
-    .col-2.sidemenu
+    .col-12.topmenu.d-block.d-md-none.mt-4
+      .dropdown.show
+        a#dropdownMenuLink.btn.btn-secondary.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" style="width:100%" shop.menu.dropdown_call_to_action
+        .dropdown-menu aria-labelledby="dropdownMenuButton"
+          - categories.each do |cat|
+            a.dropdown-item data-turbolinks="false" href="#category-#{cat.category_id}" = cat.name
+
+  .row
+    .col-2.sidemenu.d-none.d-md-block
       ul#scroll-spy-target.nav.flex-column.nav-pills.sticky-top
         - categories.each do |cat|
           li.nav-item
             a.nav-link data-turbolinks="false" href="#category-#{cat.category_id}" = cat.name
     .col
-      .table-responsive
+      .table-responsive.product-list
         table.table
           = render partial: 'shop/category', collection: categories, as: :category
 
