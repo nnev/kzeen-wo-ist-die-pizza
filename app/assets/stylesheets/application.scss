@@ -58,6 +58,7 @@ select.form-control + select.form-control {
 th {
   padding-top: 2rem !important;
   font-size: 20px;
+  line-height: 2rem;
 
   small {
     float: right;
@@ -93,6 +94,17 @@ th {
     padding-top: 3px;
     padding-bottom: 3px;
   }
+
+  // Not the whole menu will fit on small screens, e.g. landscape phones. Normally
+  // the menu becomes fixed to the page, but since the menu is already stickied to
+  // the top this makes no sense. The user now has to scroll the page to the very
+  // top to see the menu at all. We just forcibly disable the scroll change magic
+  // and live with the menu being cut off.
+  &.fixed-top .dropdown-menu {
+    position: fixed !important;
+    transform: none !important;
+    will-change: unset !important;
+  }
 }
 
 // product table
@@ -110,8 +122,17 @@ th {
 
 
 // sidebar basket
-.col-sm-3 #basket {
-  padding-top: $spacer * 1.7;
+.col-md-3 #basket {
+  // hack to make the anchor work nicely with a sticky header on mobile
+  margin-top: $spacer * -4;
+  padding-top: $spacer * 4;
+  // set correct spacing for larger screens
+  @include media-breakpoint-up(md) {
+    padding-top: $spacer * 1.7;
+    margin-top: 0;
+  }
+
+  padding-bottom: $spacer;
 
   h3 {
     margin-bottom: $spacer * 0.2;
@@ -144,4 +165,10 @@ th {
       padding-left: $spacer * 1.5;
     }
   }
+}
+
+// allow better placement when clicking anchors
+.move-up {
+  position: relative;
+  top: -4rem;
 }

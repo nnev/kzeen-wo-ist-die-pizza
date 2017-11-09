@@ -2,15 +2,18 @@
 
 = render 'nick/auto_ask'
 
-.container
-  .row
-    .col-sm-12.topmenu.d-block.d-md-none.mt-4
-      .dropdown.show
-        a#dropdownMenuLink.btn.btn-secondary.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" style="width:100%" shop.menu.dropdown_call_to_action
-        .dropdown-menu aria-labelledby="dropdownMenuButton"
-          - categories.each do |cat|
-            a.dropdown-item data-turbolinks="false" href="#category-#{cat.category_id}" = cat.name
+.topmenu.d-block.d-md-none.p-1.fixed-top.bg-dark
+  .d-flex.align-items-stretch
+    span.dropdown style="flex: 1"
+      a#dropdownMenuLink.btn.btn-secondary.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" style="width: 100%" shop.menu.dropdown_call_to_action
+      .dropdown-menu aria-labelledby="dropdownMenuButton"
+        - categories.each do |cat|
+          a.dropdown-item data-turbolinks="false" href="#category-#{cat.category_id}" = cat.name
 
+    a.btn.btn-secondary.ml-1 role="button" href="#basket" data-turbolinks="false" style="flex: 1"
+      = t('order.show_basket.goto', price: €(@order.total))
+
+.container
   .row
     .col-sm-2.sidemenu.d-none.d-md-block
       ul#scroll-spy-target.nav.flex-column.nav-pills.sticky-top
@@ -22,7 +25,7 @@
         table.table
           = render partial: 'shop/category', collection: categories, as: :category
 
-    .col-sm-3
+    .col-md-3
       =  render partial: 'show_basket'
 
 = render 'shop/add_dialog'
