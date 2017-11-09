@@ -42,6 +42,7 @@ $(document).on('turbolinks:load', function() {
     .done(function(data, textStatus, jqXHR) {
       modal.modal('hide');
       $('#basket').html(jqXHR.responseText);
+      $('.basket-total').text($('#basket-total').text());
     }).fail(function(jqXHR, textStatus, errorThrown) {
       alert('OMG Unexpected error!\n\nDetails have been printed to the console.\n\nPreview:\n' + jqXHR.responseText);
       console.log(jqXHR);

@@ -1,7 +1,7 @@
 div#basket.sticky-top
   h3
     ' order.show_basket.headline
-    span = €(@order.total)
+    span#basket-total = €(@order.total)
 
   - if @order.order.none?
     small order.show_basket.empty
