@@ -8,19 +8,11 @@ div.button-overflow style="margin-bottom: 13px"
 
   - if @basket.editable?
     .dropdown>
-      button#myOrderMenu.btn.btn-outline-secondary role="button" data-toggle="dropdown"
-        ' basket.my_order.dropdown
-        .caret
-
-      ul.dropdown-menu role="menu" aria-labelledby="myOrderMenu"
-        li
-          a href=my_order_path title=t('basket.my_order.edit.title') basket.my_order.edit.text
-
-        li
-          = render "button/save_order", order: @order, mine: true, css: ''
-
-        li.danger
-          a href=order_path(@order) title=t('basket.my_order.destroy.title') data-method="delete" data-confirm=t('basket.my_order.destroy.confirm') basket.my_order.destroy.text
+      button#myOrderMenu.btn.btn-outline-secondary.dropdown-toggle type="button" data-toggle="dropdown" basket.my_order.dropdown
+      .dropdown-menu role="menu" aria-labelledby="myOrderMenu"
+        a.dropdown-item href=my_order_path title=t('basket.my_order.edit.title') basket.my_order.edit.text
+        = render "button/save_order", order: @order, mine: true, css: 'dropdown-item'
+        a.dropdown-item.text-danger href=order_path(@order) title=t('basket.my_order.destroy.title') data-method="delete" data-confirm=t('basket.my_order.destroy.confirm') basket.my_order.destroy.text
   - else
     => render 'button/save_order', order: @order, mine: true
 

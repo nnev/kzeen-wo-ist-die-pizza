@@ -1,28 +1,23 @@
 .dropdown
-  button.btn.btn-outline-secondary.btn-sm role="button" data-toggle="dropdown"
-    ' order_table.menu
-    .caret
+  button.btn.btn-outline-secondary.btn-sm.dropdown-toggle type="button" data-toggle="dropdown" order_table.menu
 
-  ul.dropdown-menu.dropdown-menu-right role="menu"
+  .dropdown-menu.dropdown-menu-right
     - if @basket.editable?
-      li = render 'button/copy_order', order: order, css: ''
+      = render 'button/copy_order', order: order, css: 'dropdown-item'
 
-    li = render 'button/save_order', order: order, mine: false, css: ''
+    = render 'button/save_order', order: order, mine: false, css: 'dropdown-item'
 
     - if @is_admin
-      li.divider
-      li.dropdown-header order_table.admin.header
+      div.dropdown-divider
+      h6.dropdown-header order_table.admin.header
 
-      li
-        a href=order_toggle_paid_path(order.id) data-method="patch"
-          - if order.paid?
-            ' button.toggle_paid.paid.button
-          - else
-            ' button.toggle_paid.not_paid.button
+      a.dropdown-item href=order_toggle_paid_path(order.id) data-method="patch"
+        - if order.paid?
+          ' button.toggle_paid.paid.button
+        - else
+          ' button.toggle_paid.not_paid.button
 
       - if @basket.editable?
-        li
-          a href=order_path(order) basket.my_order.edit.text
+        a.dropdown-item href=order_path(order) basket.my_order.edit.text
 
-        li.danger
-          a href=order_path(order) data-method="delete" data-confirm=t('order_table.admin.delete_confirm', nick: order.nick.possessive) basket.my_order.destroy.text
+        a.dropdown-item.text-danger href=order_path(order) data-method="delete" data-confirm=t('order_table.admin.delete_confirm', nick: order.nick.possessive) basket.my_order.destroy.text
