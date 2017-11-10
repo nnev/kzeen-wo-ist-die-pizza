@@ -11,7 +11,7 @@ class OrderController < ApplicationController
 
   def destroy
     @order.destroy!
-
+    redirect_to :root
   end
 
   def item_create
@@ -37,6 +37,17 @@ class OrderController < ApplicationController
 
   def show_basket
     render partial: 'show_basket'
+  end
+
+  def toggle_paid
+    @order.toggle(:paid).save
+    if request.xhr?
+      return head :ok
+    else
+      key = "order.controller.toggle_paid.#{@order.paid? ? 'is' : 'not'}_paid"
+      flash[:info] = t(key, nick: @order.nick.possessive)
+      return redirect_to :root
+    end
   end
 
   private

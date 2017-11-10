@@ -79,6 +79,7 @@ GEM
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
     popper_js (1.12.5)
+    possessive (1.0.1)
     pry (0.11.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -173,6 +174,7 @@ DEPENDENCIES
   http_accept_language
   jquery-rails
   listen (>= 3.0.5, < 3.2)
+  possessive
   pry-rails
   puma (~> 3.7)
   rails (~> 5.1.3)

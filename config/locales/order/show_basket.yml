@@ -2,7 +2,7 @@ en:
   order:
     show_basket:
       headline: Your Order
-      explain: It's already saved. Please pay!
+      explain: Changes are saved immediately.
       empty: Nothing yet, add something!
       goto: Your Order (%{price})
 
@@ -10,7 +10,7 @@ de:
   order:
     show_basket:
       headline: Deine Bestellung
-      explain: Ist bereits gespeichert, bitte zahle!
+      explain: Änderungen werden sofort gespeichert.
       empty: Noch nichts, füg was hinzu!
       goto: Deine Bestellung (%{price})
 
