@@ -16,43 +16,10 @@
 
 @import "bootstrap";
 
-// product add modal
-.size-selector {
-  padding: 5px;
-
-  &:nth-child(even) {
-    background: #fafafa;
-  }
+$header-height: 75px;
+body {
+  padding-top: $header-height; // make room for fixed header
 }
-
-select.form-control + select.form-control {
-  margin-top: 5px;
-}
-
-.ingred-columns {
-  column-width: 11em;
-  column-gap: 2em;
-
-  .form-check:nth-child(even) {
-    background: #fafafa;
-  }
-}
-
-.form-check-label {
-  width: 100%;
-}
-
-.hidden {
-  display: none;
-}
-
-// this allows smooth scrolling on the modal windows on iOS. They say this breaks
-// scrolling there, but I can't reproduce it. Both webkit's and boostrap's bugs
-// are still open at the time of writing: https://github.com/twbs/bootstrap/issues/17695
-.modal {
-  -webkit-overflow-scrolling: touch;
-}
-
 
 
 th {
@@ -73,8 +40,10 @@ th {
 
 // menu
 .sidemenu {
+  margin-top: -$header-height;
+
   ul {
-    padding-top: $spacer * 2.05;
+    padding-top: $header-height;
   }
 
   .nav-link {
@@ -82,7 +51,7 @@ th {
   }
 }
 
-.topmenu {
+.categoryDropdown {
   .dropdown-menu {
     // save a bit of space from the default 8px
     padding-top: 6px;
@@ -94,23 +63,12 @@ th {
     padding-top: 3px;
     padding-bottom: 3px;
   }
-
-  // Not the whole menu will fit on small screens, e.g. landscape phones. Normally
-  // the menu becomes fixed to the page, but since the menu is already stickied to
-  // the top this makes no sense. The user now has to scroll the page to the very
-  // top to see the menu at all. We just forcibly disable the scroll change magic
-  // and live with the menu being cut off.
-  &.fixed-top .dropdown-menu {
-    position: fixed !important;
-    transform: none !important;
-    will-change: unset !important;
-  }
 }
 
-// product table
-
-.product-list table tbody tr:first-child th {
+// product table, fix first entry
+.product-list table tr:first-child th {
   border-top: 0;
+  padding-top: 0 !important;
 }
 
 // remove whitespace on phones to make the table as wide as the body
@@ -120,18 +78,28 @@ th {
   }
 }
 
+// allow better placement when clicking anchors
+.move-up {
+  position: relative;
+  top: -4rem;
+}
 
-// sidebar basket
-.col-md-3 #basket {
-  // hack to make the anchor work nicely with a sticky header on mobile
-  margin-top: $spacer * -4;
-  padding-top: $spacer * 4;
-  // set correct spacing for larger screens
-  @include media-breakpoint-up(md) {
-    padding-top: $spacer * 1.7;
-    margin-top: 0;
+// no idea why not there by default??
+.disabled {
+  pointer-events: none;
+}
+
+
+// adjust space so that it never scrolls or gets hidden by fixed header
+.basket-column {
+  margin-top: -$header-height;
+
+  #basket {
+    padding-top: $header-height;
   }
+}
 
+.basket-column #basket {
   padding-bottom: $spacer;
 
   h3 {
@@ -166,16 +134,54 @@ th {
       padding-left: $spacer * 1.5;
     }
   }
-
 }
 
-// allow better placement when clicking anchors
-.move-up {
-  position: relative;
-  top: -4rem;
+
+.button-overflow {
+  .btn {
+    margin-bottom: $spacer*0.5;
+    width: 100%;
+
+     @include media-breakpoint-up(sm) {
+      width: auto;
+      margin-bottom: 0;
+    }
+  }
+
+  .dropdown {
+    width: 100%;
+    display: inline-block;
+
+     @include media-breakpoint-up(sm) {
+      width: auto;
+    }
+  }
+
+  .dropdown-menu {
+    width: 100%;
+    a {
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+
+     @include media-breakpoint-up(sm) {
+      width: auto;
+      a {
+        padding-top: 3px;
+        padding-bottom: 3px;
+      }
+    }
+  }
 }
 
-// no idea why not there by default??
-.disabled {
-  pointer-events: none;
-}
+
+
+
+
+
+  .nick-id-float {
+    float:right;
+    color: #E6E6E6;
+    font-size: 600%;
+    cursor: help;
+  }

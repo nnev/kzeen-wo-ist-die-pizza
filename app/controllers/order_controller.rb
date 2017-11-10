@@ -3,7 +3,7 @@ class OrderController < ApplicationController
     @basket = Basket.current_or_create
   end
 
-  before_action :find_or_init_order
+  before_action :find_or_create_order
   before_action :check_permissions
 
   def show
@@ -20,14 +20,8 @@ class OrderController < ApplicationController
   end
 
   def item_destroy
-    # special case to avoid empty orders in group basket
-    if @order.order.size == 1 && params[:index].to_i == 0
-      @order = find_or_init_order if @order.destroy
-      show_basket
-    else
-      @order.destroy_item(params[:index].to_i)
-      save_items
-    end
+    @order.destroy_item(params[:index].to_i)
+    save_items
   end
 
   def item_update
@@ -60,8 +54,10 @@ class OrderController < ApplicationController
     end
   end
 
-  def find_or_init_order
-    @order = Order.find_or_initialize_by(nick: @nick, basket: @basket)
+  def find_or_create_order
+    # prefer order_id param from URL over auto-guessing via nick
+    @order = Order.find(params[:order_id]) if params[:order_id]
+    @order ||= Order.find_or_create_by(nick: @nick, basket: @basket)
   end
 
   def permitted_params

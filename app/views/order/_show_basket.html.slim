@@ -1,6 +1,9 @@
 div#basket.sticky-top
   h3
-    ' order.show_basket.headline
+    - if edits_other_order?
+      = t('order.show_basket.headline_other', nick: @order.nick.possessive)
+    - else
+      ' order.show_basket.headline
     span#basket-sum = €(@order.sum)
 
   - if @order.order.none?
@@ -9,3 +12,7 @@ div#basket.sticky-top
     small order.show_basket.explain
 
     = render 'item_list'
+
+  .sm-none
+    / only visible on XS screens
+    = render 'button/toggle_order_paid'

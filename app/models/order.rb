@@ -2,12 +2,12 @@ class Order < ApplicationRecord
   belongs_to :basket
   serialize :order, Array
 
+  scope :with_items, -> { where.not(order: nil) }
   scope :paid, -> { where(paid: true) }
   scope :unpaid, -> { where(paid: [false, nil]) }
   scope :sorted, -> { order('lower(nick) asc') }
 
   validates_presence_of :nick
-  validates_presence_of :order
   validates_presence_of :basket_id
 
   validate do

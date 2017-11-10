@@ -1,0 +1,31 @@
+en:
+  navbar:
+    overview: Overview
+    my_order: My Order
+    other_order: "%{nick} Order"
+    bugs: Bugs?
+    privacy: Data Usage / Privacy
+    other: Other
+
+    become_admin:
+      link: 'Become Admin'
+      confirm: 'With great power comes great responsibility. Are you sure you can withstand the pressure of the dark side?'
+    unbecome_admin: 'Disable Admin-Powers'
+
+
+de:
+  navbar:
+    overview: Übersicht
+    my_order: Meine Bestellung
+    other_order: "%{nick} Bestellung"
+    bugs: Fehler?
+    privacy: Datenschutz
+    other: Anderes
+
+    become_admin:
+      link: 'Admin werden'
+      confirm: 'Als Admin bist Du super-mächtig und musst super-verantwortungsvoll sei. Willst Du das wirklich auf Dich nehmen?'
+    unbecome_admin: 'Admin-Rechte deaktivieren'
+
+
+

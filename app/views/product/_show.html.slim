@@ -25,7 +25,7 @@ input type="hidden" name="product_id" value=@product.product_id
         - selected = @basic_ingred&.dig(group[:group_id], i) == ingred[:ingred_id]
         div.form-check
           label.form-check-label title=ingred[:description]
-            input.form-check-input type="radio" name="basic_ingred[#{group[:group_id]}][#{i}]" value=ingred[:ingred_id] checked=(@basic_ingred ? selected : index==0)
+            input.form-check-input type="radio" name="basic_ingred[#{group[:group_id]}][#{i}]" value=ingred[:ingred_id] checked=(@basic_ingred.any? ? selected : index==0)
             = ingred[:name]
   hr
 

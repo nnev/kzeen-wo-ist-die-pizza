@@ -1,7 +1,7 @@
 h2 order_table.heading
 
-- unpaid = @basket.orders.sorted.unpaid
-- paid = @basket.orders.sorted.paid
+- unpaid = @basket.orders.sorted.unpaid.with_items
+- paid = @basket.orders.sorted.paid.with_items
 
 
 - if @basket.orders.size > 0

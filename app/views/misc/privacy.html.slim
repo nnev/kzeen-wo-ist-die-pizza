@@ -1,0 +1,24 @@
+.container
+  h2 main.privacy.header
+
+  h3
+    ' main.privacy.server.header
+    small main.privacy.duration.up_to_one_year
+  ul
+    li main.privacy.server.basket.details
+    li main.privacy.server.order
+    li main.privacy.server.logs
+  p
+    b> main.privacy.note
+    ' main.privacy.server.delete_method
+
+  h3
+    ' main.privacy.browser.header
+    small main.privacy.duration.until_clear
+  ul
+    li main.privacy.browser.nick
+    li main.privacy.browser.status
+
+
+  h3 main.privacy.questions.header
+  p=I18n.t('main.privacy.questions.text', mail: 'stefan-kzeen-pizza@breunig.xyz').html_safe

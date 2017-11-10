@@ -1,0 +1,37 @@
+#productDialog {
+  .size-selector {
+    padding: 5px;
+
+    &:nth-child(even) {
+      background: #fafafa;
+    }
+  }
+
+  select.form-control + select.form-control {
+    margin-top: 5px;
+  }
+
+  .ingred-columns {
+    column-width: 11em;
+    column-gap: 2em;
+
+    .form-check:nth-child(even) {
+      background: #fafafa;
+    }
+  }
+
+  .form-check-label {
+    width: 100%;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  // this allows smooth scrolling on the modal windows on iOS. They say this breaks
+  // scrolling there, but I can't reproduce it. Both webkit's and boostrap's bugs
+  // are still open at the time of writing: https://github.com/twbs/bootstrap/issues/17695
+  .modal {
+    -webkit-overflow-scrolling: touch;
+  }
+}

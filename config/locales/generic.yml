@@ -1,5 +1,6 @@
 en:
-  name: HipsterPizza
+  name: kzeen where is the 🍕?
+  short_name: 🍕?
 
   mode:
     invalid_or_missing: 'Missing or invalid mode. HipsterPizza uses cookies to control the flow when showing external sites. Please ensure you have cookies enabled.'
@@ -17,10 +18,10 @@ en:
   toggle_failed: 'Could not carry out your actions for unknown reasons. Ask a developer.'
 
 de:
-  name: HipsterPizza
+  name: kzeen wo ist die 🍕?
+  short_name: 🍕?
 
   mode:
-    invalid_or_missing: 'Fehlender oder ungültiger Modus. HipsterPizza nutzt Cookies zur Steuerung auf externen Seiten. Bitte stelle sicher, dass Du Cookies aktiviert hast.'
   time:
     future: 'in %{date}'
     past: 'vor %{date}'

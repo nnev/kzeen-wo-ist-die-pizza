@@ -2,6 +2,7 @@ en:
   order:
     show_basket:
       headline: Your Order
+      headline_other: "%{nick} Order"
       explain: Changes are saved immediately.
       empty: Nothing yet, add something!
       goto: Your Order (%{price})
@@ -10,6 +11,7 @@ de:
   order:
     show_basket:
       headline: Deine Bestellung
+      headline_other: "%{nick} Bestellung"
       explain: Änderungen werden sofort gespeichert.
       empty: Noch nichts, füg was hinzu!
       goto: Deine Bestellung (%{price})

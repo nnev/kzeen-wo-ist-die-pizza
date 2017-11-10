@@ -66,7 +66,8 @@ $(document).on('turbolinks:load', function() {
   }
 
   function submissionUrl() {
-    return selectedIndex !== null ? '/order/item/' + selectedIndex : '/order/item/create'
+    var prefix = '/order/' + order_id + '/item/';
+    return selectedIndex !== null ? prefix + selectedIndex : prefix + 'create';
   }
 
   function setupActionButtons() {
@@ -83,7 +84,9 @@ $(document).on('turbolinks:load', function() {
   }
 
   function loadBody() {
-    body.load('/product/' + productId + '?select=' + selectedIndex, function() {
+    var query = selectedIndex === null ? '' : '?select=' + selectedIndex;
+
+    body.load('/product/' + productId + query, function() {
       modal.find('.size-selector input').on('change', showPricesForSize);
       modal.find('input').on('change', calculateSum);
 

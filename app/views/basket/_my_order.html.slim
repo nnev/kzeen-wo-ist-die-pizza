@@ -1,19 +1,20 @@
 h2 = t('basket.my_order.heading', nick: @order.nick)
 
-div.hidden-xs.nick-id-float title==t('basket.my_order.nick_id_creed') = @order.nick_id
+/ hidden on XS and SM
+div.d-none.d-md-block.nick-id-float title==t('basket.my_order.nick_id_creed') = @order.nick_id
 
 div.button-overflow style="margin-bottom: 13px"
   = render 'button/toggle_order_paid'
 
   - if @basket.editable?
     .dropdown>
-      button#myOrderMenu.btn.btn-default role="button" data-toggle="dropdown"
+      button#myOrderMenu.btn.btn-outline-secondary role="button" data-toggle="dropdown"
         ' basket.my_order.dropdown
         .caret
 
       ul.dropdown-menu role="menu" aria-labelledby="myOrderMenu"
         li
-          a href=order_path(@order) title=t('basket.my_order.edit.title') basket.my_order.edit.text
+          a href=my_order_path title=t('basket.my_order.edit.title') basket.my_order.edit.text
 
         li
           = render "button/save_order", order: @order, mine: true, css: ''

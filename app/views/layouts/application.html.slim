@@ -1,0 +1,24 @@
+doctype html
+html
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+    title name
+    = csrf_meta_tags
+    meta content="width=device-width, initial-scale=1.0" name="viewport" /
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  body data-offset="0" data-spy="scroll" data-target="#scroll-spy-target"
+    - if Rails.env.development?
+      div style="position:fixed;top:0;left:0;z-index: 2000"
+        .d-block.d-sm-none XS
+        .d-none.d-sm-block.d-md-none SM
+        .d-none.d-md-block.d-lg-none MD
+        .d-none.d-lg-block.d-xl-none LG
+        .d-none.d-xl-block XL
+    = render 'shared/navbar'
+    = yield
+
+
+
+
+

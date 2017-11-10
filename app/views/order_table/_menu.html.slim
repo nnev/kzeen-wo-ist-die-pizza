@@ -1,5 +1,5 @@
 .dropdown
-  button.btn.btn-default.btn-xs role="button" data-toggle="dropdown"
+  button.btn.btn-outline-secondary.btn-sm role="button" data-toggle="dropdown"
     ' order_table.menu
     .caret
 
@@ -14,7 +14,7 @@
       li.dropdown-header order_table.admin.header
 
       li
-        a href=url_for([:toggle_paid, @basket, order]) data-method="patch"
+        a href=order_toggle_paid_path(order.id) data-method="patch"
           - if order.paid?
             ' button.toggle_paid.paid.button
           - else
@@ -22,7 +22,7 @@
 
       - if @basket.editable?
         li
-          a href=url_for([:edit, @basket, order]) data-no-turbolink="" basket.my_order.edit.text
+          a href=order_path(order) basket.my_order.edit.text
 
         li.danger
-          a href=url_for([@basket, order]) data-method="delete" data-confirm=t('order_table.admin.delete_confirm', nick: order.nick.possessive) basket.my_order.destroy.text
+          a href=order_path(order) data-method="delete" data-confirm=t('order_table.admin.delete_confirm', nick: order.nick.possessive) basket.my_order.destroy.text

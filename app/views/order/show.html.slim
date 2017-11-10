@@ -2,16 +2,19 @@
 
 = render 'nick/auto_ask'
 
-.topmenu.d-block.d-md-none.p-1.fixed-top.bg-dark
-  .d-flex.align-items-stretch
-    span.dropdown style="flex: 1"
-      a#dropdownMenuLink.btn.btn-secondary.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" style="width: 100%" shop.menu.dropdown_call_to_action
-      .dropdown-menu aria-labelledby="dropdownMenuButton"
-        - categories.each do |cat|
-          a.dropdown-item data-turbolinks="false" href="#category-#{cat.category_id}" = cat.name
+script
+  | var order_id=#{@order.id};
 
-    a.btn.btn-secondary.ml-1 role="button" href="#basket" data-turbolinks="false" style="flex: 1"
-      == t('order.show_basket.goto', price: %|<span class="basket-sum">#{€(@order.sum)}</span>|)
+
+
+
+- content_for :navbar do
+  li.nav-item.dropdown.d-md-none.categoryDropdown
+    / hidden on larger screens
+    a#categorySelector.nav-link.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" shop.menu.dropdown_call_to_action
+    .dropdown-menu.dropdown-menu-right aria-labelledby="categorySelector" style="z-index:1021"
+      - categories.each do |cat|
+        a.dropdown-item data-turbolinks="false" href="#category-#{cat.category_id}" = cat.name
 
 .container
   .row
@@ -25,7 +28,7 @@
         table.table
           = render partial: 'shop/category', collection: categories, as: :category
 
-    .col-md-3
+    .col-md-3.basket-column
       =  render partial: 'show_basket'
 
 = render 'shop/dialog'
