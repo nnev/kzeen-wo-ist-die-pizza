@@ -5,16 +5,28 @@ class ProductController < ApplicationController
   end
 
   def show
-    @size = permitted_params[:size].presence&.to_i || nil
-    @extra_ingred = permitted_params[:extra_ingred]&.map(&:to_i) || []
-    @basic_ingred = Hash[permitted_params[:basic_ingred].to_h.map { |k, v| [k.to_i, v.map(&:to_i)] }]
-
+    set_selected_item
     render partial: 'show'
   end
 
   private
 
-  def permitted_params
-    params.permit(:product_id, :size, extra_ingred: [], basic_ingred: {})
+  def set_selected_item
+    @size = nil
+    @basic_ingred = {}
+    @extra_ingred = []
+
+    return unless params[:select] =~ /\A\d+\z/
+    selected = params[:select].to_i
+
+    order = Order.find_by(nick: @nick, basket: @basket)
+    return unless order
+
+    items = order.order[selected]
+    return unless items
+
+    @size = items['size']
+    @extra_ingred = items['extra_ingred']
+    @basic_ingred = items['basic_ingred']
   end
 end

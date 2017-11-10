@@ -1,15 +1,19 @@
 en:
   shop:
-    add_dialog:
+    dialog:
       cancel: Cancel
-      add_to_basket: Add To Basket
+      update: Change
+      remove: Remove
+      add_to_basket: Add To Order
       loading: 🍕 kzeen is loading…
       insta_order: Your order will be added to global basket immediately.
 
 de:
   shop:
-    add_dialog:
+    dialog:
       cancel: Abbrechen
-      add_to_basket: In den Warenkorb
+      update: Ändern
+      remove: Entfernen
+      add_to_basket: Kostenpflichtig Bestellen
       loading: 🍕 kzeen lädt…
       insta_order: Deine Bestellung wird sofort zum Gesamt-Warenkorb hinzugefügt.

@@ -153,6 +153,7 @@ th {
 
     > li {
       margin-top: $spacer;
+      cursor: pointer;
 
       span {
         float: right;
@@ -165,6 +166,7 @@ th {
       padding-left: $spacer * 1.5;
     }
   }
+
 }
 
 // allow better placement when clicking anchors

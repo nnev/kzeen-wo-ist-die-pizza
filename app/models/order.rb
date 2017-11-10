@@ -47,10 +47,31 @@ class Order < ApplicationRecord
     self.order << new_order
   end
 
+  def destroy_item(index)
+    check_bounds(index)
+    self.order.delete_at(index)
+  end
+
+  def update_item(index, data)
+    check_bounds(index)
+
+    add_item(data)
+    return unless valid?
+
+    self.order[index] = self.order.last
+    destroy_item(self.order.size-1)
+  end
+
   def total
     order.map do |item|
       prod = ::Remote::Product.new(branch_id: branch_id, product_id: item[:product_id])
       prod.price(item)
     end.sum
+  end
+
+  private
+
+  def check_bounds(index)
+    raise 'index out of bounds' if index >= order.size
   end
 end

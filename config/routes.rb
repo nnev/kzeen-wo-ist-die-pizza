@@ -5,9 +5,9 @@ Rails.application.routes.draw do
 
   resource :order, only: [:show], controller: :order do
     post   'item/create', to: 'order#item_create'
-    get    'item/:index', to: 'order#item_show',  as: :item
-    patch  'item/:index', to: 'order#item_update'
-    delete 'item/:index', to: 'order#item_destroy'
+    get    'item/:index', to: 'order#item_show',  as: :item, constraints: { :index => /\d/ }
+    post   'item/:index', to: 'order#item_update',           constraints: { :index => /\d/ }
+    delete 'item/:index', to: 'order#item_destroy',          constraints: { :index => /\d/ }
   end
   resources :product, only: :show
 
