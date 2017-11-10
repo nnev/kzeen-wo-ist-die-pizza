@@ -1,0 +1,13 @@
+.categoryDropdown {
+  .dropdown-menu {
+    // save a bit of space from the default 8px
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+
+  .dropdown-item {
+    // save a bit of space from the default 4px
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+}

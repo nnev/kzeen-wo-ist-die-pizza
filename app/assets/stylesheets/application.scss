@@ -21,27 +21,43 @@ body {
   padding-top: $header-height; // make room for fixed header
 }
 
+// PRODUCT TABLE ON SHOP PAGE //////////////////////////////////////////////////
+.product-list {
+  // fix first entry
+  tr:first-child th {
+    border-top: 0;
+    padding-top: 0 !important;
+  }
 
-th {
-  padding-top: 2rem !important;
-  font-size: 20px;
-  line-height: 2rem;
+  th {
+    padding-top: 2rem !important;
+    font-size: 20px;
+    line-height: 2rem;
 
-  small {
-    float: right;
-    font-size: 64%;
+    small {
+      float: right;
+      font-size: 64%;
+    }
+  }
+
+  // allow better placement when clicking anchors
+  .move-up {
+    position: relative;
+    top: -4rem;
+  }
+
+  // remove whitespace on phones to make the table as wide as the body
+  @include media-breakpoint-down(sm) {
+    .row .col-sm {
+      padding: 0;
+    }
   }
 }
 
-// generic
-.price {
-  white-space: nowrap;
-}
-
-// menu
+// LEFT HAND MENU ON SHOP PAGE /////////////////////////////////////////////////
 .sidemenu {
+  // account for fixed navbar
   margin-top: -$header-height;
-
   ul {
     padding-top: $header-height;
   }
@@ -51,49 +67,9 @@ th {
   }
 }
 
-.categoryDropdown {
-  .dropdown-menu {
-    // save a bit of space from the default 8px
-    padding-top: 6px;
-    padding-bottom: 6px;
-  }
-
-  .dropdown-item {
-    // save a bit of space from the default 4px
-    padding-top: 3px;
-    padding-bottom: 3px;
-  }
-}
-
-// product table, fix first entry
-.product-list table tr:first-child th {
-  border-top: 0;
-  padding-top: 0 !important;
-}
-
-// remove whitespace on phones to make the table as wide as the body
-@include media-breakpoint-down(sm) {
-  .row .col-sm {
-    padding: 0;
-  }
-}
-
-// allow better placement when clicking anchors
-.move-up {
-  position: relative;
-  top: -4rem;
-}
-
-// no idea why not there by default??
-.disabled {
-  pointer-events: none;
-}
-
-
-// adjust space so that it never scrolls or gets hidden by fixed header
-.basket-column {
+// RIGHT HAND BASKET ON SHOP PAGE //////////////////////////////////////////////
+.basket-column { // account for fixed navbar
   margin-top: -$header-height;
-
   #basket {
     padding-top: $header-height;
   }
@@ -136,7 +112,20 @@ th {
   }
 }
 
+// RANODM //////////////////////////////////////////////////////////////////////
+.price {
+  white-space: nowrap;
+}
 
+
+// no idea why not there by default??
+.disabled {
+  pointer-events: none;
+}
+
+
+// instead of awkwardly wrapping overflowing buttons on small screens, just
+// display them full width instead
 .button-overflow {
   .btn {
     margin-bottom: $spacer*0.5;
@@ -175,13 +164,48 @@ th {
 }
 
 
+.nick-id-float {
+  float:right;
+  color: #E6E6E6;
+  font-size: 600%;
+  cursor: help;
+}
 
 
+.anti-troll {
+  max-width: 130px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
+.wrap-ok { // give space to order list in overview table
+  min-width: 200px;
+}
 
-  .nick-id-float {
-    float:right;
-    color: #E6E6E6;
-    font-size: 600%;
-    cursor: help;
+.compact-items {
+  column-width: 15rem;
+
+  > ul {
+    list-style-type: none;
+    padding-left: 0;
+
+    > li {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    ol, ul {
+      font-size: 80%;
+      list-style-position: inside;
+      padding-left: $spacer;
+    }
   }
+
+  strong {
+    font-weight: normal;
+  }
+
+  span {
+    display: none;
+  }
+}
