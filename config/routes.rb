@@ -3,7 +3,8 @@ Rails.application.routes.draw do
 
   patch 'set_nick', to: 'tool#set_nick'
 
-  resource :order, only: [:show], controller: :order do
+  resource :order, only: [:show, :destroy], controller: :order do
+    patch :toggle_paid, on: :member
     post   'item/create', to: 'order#item_create'
     get    'item/:index', to: 'order#item_show',  as: :item, constraints: { :index => /\d/ }
     post   'item/:index', to: 'order#item_update',           constraints: { :index => /\d/ }

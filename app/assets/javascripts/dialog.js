@@ -17,7 +17,7 @@ $(document).on('turbolinks:load', function() {
     modal.find('.price-'+sizeId).removeClass('hidden');
   }
 
-  function calculateTotal(evt) {
+  function calculateSum(evt) {
     var selectors = [
       // fields with direct price on them, e.g. size selectors
       'input:checked[data-price]:not(.hidden)',
@@ -31,17 +31,17 @@ $(document).on('turbolinks:load', function() {
     var selected = body.find(selectors.join());
 
     var prices = selected.map(function() { return $(this).data('price') }).toArray();
-    var total = prices.reduce(function(acc, val) { return acc + val }, 0);
-    var formatted = total.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' });
+    var sum = prices.reduce(function(acc, val) { return acc + val }, 0);
+    var formatted = sum.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' });
 
-    modal.find('#total-price').text(formatted);
+    modal.find('#sum-price').text(formatted);
   }
 
   function handleAjaxResponse(jqAjax) {
     jqAjax.done(function(data, textStatus, jqXHR) {
       modal.modal('hide');
       $('#basket').replaceWith(jqXHR.responseText);
-      $('.basket-total').text($('#basket-total').text());
+      $('.basket-sum').text($('#basket-sum').text());
     }).fail(function(jqXHR, textStatus, errorThrown) {
       alert('OMG Unexpected error!\n\nDetails have been printed to the console.\n\nPreview:\n' + jqXHR.responseText);
       console.log(jqXHR);
@@ -85,7 +85,7 @@ $(document).on('turbolinks:load', function() {
   function loadBody() {
     body.load('/product/' + productId + '?select=' + selectedIndex, function() {
       modal.find('.size-selector input').on('change', showPricesForSize);
-      modal.find('input').on('change', calculateTotal);
+      modal.find('input').on('change', calculateSum);
 
       modal.find('input').trigger('change');
       submitButton.removeClass('disabled');

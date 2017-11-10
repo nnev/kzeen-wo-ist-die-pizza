@@ -3,7 +3,7 @@ class CreateOrders < ActiveRecord::Migration[5.1]
     create_table :orders do |t|
       t.string :nick
       t.integer :basket_id
-      t.boolean :paid
+      t.boolean :paid, default: false
       t.text :order
 
       t.timestamps

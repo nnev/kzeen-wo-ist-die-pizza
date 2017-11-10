@@ -2,7 +2,7 @@ en:
   basket:
     money_pile:
       title: 'Money Pile'
-      total: 'Total: %{sum}.'
+      sum: 'Total: %{sum}.'
       change: 'It’s totally okay to use the pile for money exchange.'
 
       togo: '%{amount} still needs to be paid'
@@ -12,7 +12,7 @@ de:
   basket:
     money_pile:
       title: 'Geldhaufen'
-      total: 'Gesamt: %{sum}.'
+      sum: 'Gesamt: %{sum}.'
       change: 'Du kannst den Haufen zum Geldwechseln nutzen.'
 
       togo: '%{amount} müssen noch bezahlt werden'

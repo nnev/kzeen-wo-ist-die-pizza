@@ -2,6 +2,10 @@ class Order < ApplicationRecord
   belongs_to :basket
   serialize :order, Array
 
+  scope :paid, -> { where(paid: true) }
+  scope :unpaid, -> { where(paid: [false, nil]) }
+  scope :sorted, -> { order('lower(nick) asc') }
+
   validates_presence_of :nick
   validates_presence_of :order
   validates_presence_of :basket_id
@@ -29,6 +33,15 @@ class Order < ApplicationRecord
   end
 
   delegate :branch_id, to: :basket
+
+  def nick_id
+    n = UnicodeUtils.canonical_decomposition(nick)
+    n = n.gsub(/[^a-z0-9]/i, '').upcase[0..2]
+    n[0] ||= '~'
+    n[1] ||= '~'
+    n[2] ||= '~'
+    n
+  end
 
   def add_item(data)
     new_order = {
@@ -62,11 +75,17 @@ class Order < ApplicationRecord
     destroy_item(self.order.size-1)
   end
 
-  def total
+  def sum
     order.map do |item|
       prod = ::Remote::Product.new(branch_id: branch_id, product_id: item[:product_id])
       prod.price(item)
     end.sum
+  end
+
+  def sum_with_tip
+    tip_percent = [0, Rails.application.config.tip_percent].max
+    # round to nearest 10 cents
+    (sum * (tip_percent / 100.0 + 1)).round(1)
   end
 
   private

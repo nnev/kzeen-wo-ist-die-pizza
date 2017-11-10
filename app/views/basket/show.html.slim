@@ -6,3 +6,13 @@
     = render 'my_order'
   - else
     = render 'no_order'
+
+  #reSubmitted
+    - if @basket.submitted?
+      = render 'submitted_status'
+
+  #reMoney
+    = render 'money_pile'
+
+  #reTable
+    = render 'order_table/table'

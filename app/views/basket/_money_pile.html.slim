@@ -1,0 +1,19 @@
+- sum = €(@basket.sum)
+- pile = €(@basket.sum_paid)
+- togo = €(@basket.sum_unpaid)
+
+- paid = pile.to_f / sum.to_f * 100
+
+h2 basket.money_pile.title
+
+p
+  b> = t('basket.money_pile.sum', sum: sum, pile: pile, togo: togo)
+  span.text-muted = t('basket.money_pile.change')
+
+- if @basket.sum > 0
+  .progress
+    .progress-bar.progress-bar-success style="width: #{paid}%" title=t('basket.money_pile.pile', amount: pile)
+      = pile
+
+    .progress-bar class="progress-bar-#{@basket.submitted? ? 'danger' : 'transparent'}" style="width: #{100 - paid}%" title=t('basket.money_pile.togo', amount: togo)
+      = togo

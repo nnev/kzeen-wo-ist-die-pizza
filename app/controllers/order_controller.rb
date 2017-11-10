@@ -4,8 +4,14 @@ class OrderController < ApplicationController
   end
 
   before_action :find_or_init_order
+  before_action :check_permissions
 
   def show
+  end
+
+  def destroy
+    @order.destroy!
+
   end
 
   def item_create
@@ -49,5 +55,14 @@ class OrderController < ApplicationController
 
   def permitted_params
     params.permit(:product_id, :size, extra_ingred: [], basic_ingred: {})
+  end
+
+  def check_permissions
+    return if @is_admin
+    return if @order.new_record?
+    return if @order.nick == @nick
+
+    flash[:warn] = I18n.t('order.controller.admin_required')
+    redirect_to :root
   end
 end

@@ -1,0 +1,20 @@
+/ TODO FIXME
+/ - c = defined?(css) ? css : 'btn btn-default'
+/ - nick = mine ? @nick : order.nick
+
+/ - if SavedOrder.exists?(nick, order)
+/   a data-target="#" href="" class=c button.save_order.link.saved
+/ - else
+/   - tt = defined?(mine) && mine ? 'my' : 'others'
+/   = link_to t('button.save_order.link.' + tt),
+/     url_for([:save, @basket, order]),
+/     title: t('button.save_order.title'),
+/     method: :post,
+/     remote: true,
+/     class: c,
+/     data: { \
+/       inject_response: true,
+/       prompt: { \
+/         message: t('button.save_order.prompt.message'),
+/         default: "#{nick}: ",
+/         param: 'name' } }

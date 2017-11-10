@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171107115401) do
+ActiveRecord::Schema.define(version: 20171110112701) do
 
   create_table "baskets", force: :cascade do |t|
     t.datetime "submitted_at"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20171107115401) do
     t.integer "branch_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "cancelled", default: false
   end
 
   create_table "json_caches", force: :cascade do |t|
@@ -30,7 +31,7 @@ ActiveRecord::Schema.define(version: 20171107115401) do
   create_table "orders", force: :cascade do |t|
     t.string "nick"
     t.integer "basket_id"
-    t.boolean "paid"
+    t.boolean "paid", default: false
     t.text "order"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

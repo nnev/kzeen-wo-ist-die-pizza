@@ -19,6 +19,7 @@ module KzeenWoIstDiePizza
     config.i18n.available_locales = [:en, :de]
 
 
+    config.tip_percent = 6
 
     # end with trailing slash
     config.shop_url = 'https://delivery-app.app-smart.services/api2.5/D4LQjy8fNbse392x/'

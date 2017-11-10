@@ -1,0 +1,7 @@
+- c = defined?(css) ? css : ''
+- url = toggle_paid_order_path(@order)
+
+- if @order.paid?
+  a.btn.btn-default> class=c href=url data-method="patch" title=t('button.toggle_paid.paid.title') button.toggle_paid.paid.button
+- else
+  a.btn.btn-primary> class=c href=url data-method="patch" title=t('button.toggle_paid.not_paid.title') button.toggle_paid.not_paid.button

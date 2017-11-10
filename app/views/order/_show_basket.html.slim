@@ -1,30 +1,11 @@
 div#basket.sticky-top
   h3
     ' order.show_basket.headline
-    span#basket-total = €(@order.total)
+    span#basket-sum = €(@order.sum)
 
   - if @order.order.none?
     small order.show_basket.empty
   - else
     small order.show_basket.explain
 
-    ul
-      - @order.order.each.with_index do |item, index|
-        - prod = ::Remote::Product.new(branch_id: @order.branch_id, product_id: item[:product_id])
-        li data-toggle="modal" data-target="#productDialog" data-product-id=item[:product_id] data-select=index data-product-name=prod.name
-          strong
-            = prod.name
-            span = €(prod.price(item))
-          - if prod.named_size(item).present?
-            ul.text-secondary
-              li = prod.named_size(item)
-
-          - if item[:basic_ingred].any?
-            ol.text-secondary
-              - prod.named_basic_ingredients(item).each do |names|
-                li = names.join(', ')
-
-          - if item[:extra_ingred].any?
-            ul.text-secondary
-              - prod.named_extra_ingredients(item).each do |name|
-                li = name
+    = render 'item_list'

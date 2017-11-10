@@ -1,4 +1,9 @@
 en:
   product:
     show:
-      total_price: Total
+      sum_price: Total
+
+de:
+  product:
+    show:
+      sum_price: Summe

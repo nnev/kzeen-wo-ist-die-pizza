@@ -11,7 +11,7 @@
           a.dropdown-item data-turbolinks="false" href="#category-#{cat.category_id}" = cat.name
 
     a.btn.btn-secondary.ml-1 role="button" href="#basket" data-turbolinks="false" style="flex: 1"
-      == t('order.show_basket.goto', price: %|<span class="basket-total">#{€(@order.total)}</span>|)
+      == t('order.show_basket.goto', price: %|<span class="basket-sum">#{€(@order.sum)}</span>|)
 
 .container
   .row
