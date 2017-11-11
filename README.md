@@ -37,5 +37,22 @@ git commit -m "Updated gems"
 See the example files in the `ops/` directory. Note that by default kzeenpizza
 listens on `localhost:10003`.
 
+#### systemd
+
+Using all default values:
+
+```
+adduser --home /var/www/pizza.noname-ev.de/ --disabled-login kzeenpizza
+$(grep -o 'apt-get install.*' ops/Dockerfile)
+cp ops/kzeenpizza.service /etc/systemd/system/
+systemctl enable kzeenpizza.service
+systemctl start kzeenpizza.service
+cp ops/nginx_sample /etc/nginx/sites-available/kzeenpizza
+ln -s /etc/nginx/sites-available/kzeenpizza /etc/nginx/sites-enabled/
+
+```
+
+#### Docker
+
 There is currently no ready-to-use Dockerfile. The included one is for testing
 purposes only.
