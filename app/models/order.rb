@@ -1,5 +1,7 @@
 class Order < ApplicationRecord
-  belongs_to :basket
+  include SafeBroadcast
+
+  belongs_to :basket, touch: true
   serialize :order, Array
 
   scope :with_items, -> { where.not(order: nil) }
@@ -89,6 +91,21 @@ class Order < ApplicationRecord
   end
 
   private
+
+  after_save :broadcast
+
+  def broadcast
+    safe_broadcast do
+      partial =  self.order.any? ? 'my_order' : 'no_order'
+      rendered = BasketController.render(
+        partial: partial,
+        assigns: { basket: self.basket, order: self, nick: self.nick },
+        layout: false
+      )
+
+      OrderChannel.broadcast_to("basket_#{self.basket.id}_nick_#{self.nick}", rendered)
+    end
+  end
 
   def check_bounds(index)
     raise 'index out of bounds' if index >= order.size
