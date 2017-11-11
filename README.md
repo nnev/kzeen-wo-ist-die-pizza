@@ -3,9 +3,7 @@
 ## Development
 
 #### Ruby
-Use your favorite Ruby version hell manager to install a matching Ruby version.
-It should work with any, but we're targeting the one from Debian Testing, because
-that's what our server runs at.
+Use your favorite Ruby version hell manager to install a matching Ruby version. It should work with any, but we're targeting the one from Debian Testing, because that's what our server runs at.
 
 Note: If you use asdf-vm, you might need to: `echo "legacy_version_file = yes" >> ~/.asdfrc`
 
@@ -13,14 +11,12 @@ Note: If you use asdf-vm, you might need to: `echo "legacy_version_file = yes" >
 
 This should do it:
 ```
-# Install dependencies. We use the ones from the Dockerfile, which should be up
-# to date for Debian.
+# Install dependencies. We use the ones from the Dockerfile, which should be up to date for Debian.
 $(grep -o 'apt-get install.*' ops/Dockerfile)
 bundle install
 ```
 
-Note that all gems are also vendor'd and should be updated by Bundler automatically
-when you change them.
+Note that all gems are also vendor'd and should be updated by Bundler automatically when you change them.
 
 #### Updating gems
 
@@ -34,8 +30,7 @@ git commit -m "Updated gems"
 
 ## Deployment
 
-See the example files in the `ops/` directory. Note that by default kzeenpizza
-listens on `localhost:10003`.
+See the example files in the `ops/` directory. Note that by default kzeenpizza listens on `localhost:10003`.
 
 #### systemd
 
@@ -54,5 +49,4 @@ ln -s /etc/nginx/sites-available/kzeenpizza /etc/nginx/sites-enabled/
 
 #### Docker
 
-There is currently no ready-to-use Dockerfile. The included one is for testing
-purposes only.
+There is currently no ready-to-use Dockerfile. The included one is for testing purposes only.
