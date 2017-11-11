@@ -11,9 +11,9 @@ p
   span.text-muted = t('basket.money_pile.change')
 
 - if @basket.sum > 0
-  .progress
-    .progress-bar.progress-bar-success style="width: #{paid}%" title=t('basket.money_pile.pile', amount: pile)
-      = pile
+    .progress
+      .progress-bar.bg-success role="progressbar" style="width: #{paid}%"         title=t('basket.money_pile.pile', amount: pile)
+        = pile
 
-    .progress-bar class="progress-bar-#{@basket.submitted? ? 'danger' : 'transparent'}" style="width: #{100 - paid}%" title=t('basket.money_pile.togo', amount: togo)
-      = togo
+      .progress-bar            role="progressbar" style="width: #{100.0 - paid}%" title=t('basket.money_pile.togo', amount: togo) class="#{@basket.submitted? ? 'bg-danger' : 'bg-light'}"
+        = togo

@@ -1,0 +1,18 @@
+.progress {
+  font-weight: bold;
+  position: relative;
+  color: #fff;
+  text-shadow:
+  -1px -1px 0 rgba(0,0,0, 0.5),
+   1px -1px 0 rgba(0,0,0, 0.5),
+  -1px  1px 0 rgba(0,0,0, 0.5),
+   1px  1px 0 rgba(0,0,0, 0.5),
+   0 0 3px #fff;
+
+   margin-bottom: 1.5rem;
+   height: auto !important;
+
+   .progress-bar {
+      padding: 0.25rem 0;
+   }
+}
