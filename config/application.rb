@@ -24,6 +24,18 @@ module KzeenWoIstDiePizza
     # end with trailing slash
     config.shop_url = 'https://delivery-app.app-smart.services/api2.5/D4LQjy8fNbse392x/'
     config.shop_branch_id = 1184 # from get-branches
-    config.shop_fax = 'TODO'
+    config.shop_fax = '+4962216739607'
+
+    config.x.pdf.logo = 'public/nnev.png'
+    config.x.pdf.save_path = '/tmp/kzeenpizza_{basket_id}_{timestamp}_{shop_fax}.pdf'
+    config.x.pdf.qr_location = {lat: 49.417433, lon: 8.675255}
+
+    config.x.pdf.company = 'NoName e.V.'
+    config.x.pdf.name    = 'Fridolin Nord'
+    config.x.pdf.street  = 'Im Neuenheimer Feld 205'
+    config.x.pdf.city    = '69120 Heidelberg'
+    config.x.pdf.phone   = '015792307561'
+    config.x.pdf.email   = 'pizza@noname-ev.de'
+    config.x.pdf.text    = 'Kartons bitte beschriften'
   end
 end

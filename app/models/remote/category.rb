@@ -9,13 +9,13 @@ class Remote::Category
     # note: we don't care about double-reads on race-conditions
     @raw.fetch_or_store(branch_id) do
       JsonCache.get('get-categories/' + branch_id.to_s)
-    end
+    end.freeze
   end
 
   def self.all(branch_id:)
     raw(branch_id: branch_id)['d'].pluck('id').map do |xx|
       new(branch_id: branch_id, category_id: xx)
-    end
+    end.freeze
   end
 
   def initialize(branch_id:, category_id:)
@@ -33,20 +33,20 @@ class Remote::Category
 
     json['d'].pluck('id').map do |xx|
       ::Remote::Product.new(branch_id: @branch_id, product_id: xx)
-    end
+    end.freeze
   end
 
   attr_reader :category_id
 
   def picture_url
-    @data['picurl']&.sub('http://', 'https://')
+    @data['picurl']&.sub('http://', 'https://').freeze
   end
 
   def description
-    @data['description']
+    @data['description'].freeze
   end
 
   def name
-    @data['name']
+    @data['name'].freeze
   end
 end

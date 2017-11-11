@@ -28,6 +28,7 @@ Rails.application.routes.draw do
 
   resources :basket, only: :show do
     member do
+      get :pdf
       patch :toggle_cancelled
       patch :delivery_arrived
       patch :submit

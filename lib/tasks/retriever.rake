@@ -8,6 +8,9 @@ namespace :retriever do
         puts "#{br.name} / #{cat.name} / #{prod.name}"
       end
     end
+    warn "====================================================="
+    warn " Restart Rails if it is running to reflect new data! "
+    warn "====================================================="
   end
 
   desc "Downloads fresh copies of store config JSON files."

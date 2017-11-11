@@ -24,6 +24,12 @@ gem 'possessive'
 gem 'http_accept_language'
 gem 'concurrent-ruby'
 
+# PDF
+gem 'prawn', '1.0.0'
+gem 'prawn-qrcode'
+gem 'prawn-table', '0.2.1'
+gem 'prawn-rails', '0.1.0'
+
 group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   # gem 'capybara', '~> 2.13'

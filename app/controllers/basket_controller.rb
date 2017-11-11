@@ -42,6 +42,19 @@ class BasketController < ApplicationController
     redirect_to vanity_basket_path
   end
 
+  def pdf
+    @static = Rails.application.config.x.pdf
+    path = @static[:save_path]
+      .sub('{timestamp}', Time.now.to_i.to_s)
+      .sub('{basket_id}', @basket.id.to_s)
+      .sub('{shop_fax}', Rails.application.config.shop_fax)
+    fn = File.basename(path)
+
+    response.headers['Content-Disposition'] = %(INLINE; FILENAME="#{fn}")
+    response.headers['Content-Type'] = 'application/pdf'
+    render 'fax.pdf'
+  end
+
   private
 
   def require_admin

@@ -15,6 +15,6 @@ class JsonCache < ApplicationRecord
     c.json = raw
     c.save!
 
-    parsed
+    parsed.freeze
   end
 end
