@@ -113,6 +113,22 @@ body {
 }
 
 // RANODM //////////////////////////////////////////////////////////////////////
+
+// we need more space on landscape phones, make container filling
+@include media-breakpoint-down(sm) {
+  .container {
+    max-width: none;
+  }
+
+  .navbar-brand { // yes we're that desperate
+    margin-right: $spacer * 0.5;
+  }
+}
+
+nav {
+  white-space: nowrap;
+}
+
 .price {
   white-space: nowrap;
 }

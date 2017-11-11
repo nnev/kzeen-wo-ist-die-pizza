@@ -20,7 +20,10 @@ nav.navbar.navbar-expand.fixed-top class="navbar-#{color} bg-#{color}"
         li.nav-item
           a.nav-link data-turbolinks=(current_page?(vanity_path) ? 'false' : 'true') href="#{vanity_path}#basket"
             - if edits_other_order?
-              = t('navbar.other_order', nick: @order.nick.possessive)
+              span.d-none.d-sm-block
+                = t('navbar.other_order', nick: @order.nick.possessive)
+              span.d-sm-none
+                = t('navbar.other_order', nick: @order.nick_id.possessive)
             - else
               ' navbar.my_order
         == yield :navbar

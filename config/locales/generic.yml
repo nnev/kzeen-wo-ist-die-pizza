@@ -1,6 +1,6 @@
 en:
   name: kzeen where is the 🍕?
-  short_name: 🍕?
+  short_name: kzeen 🍕
 
   mode:
     invalid_or_missing: 'Missing or invalid mode. HipsterPizza uses cookies to control the flow when showing external sites. Please ensure you have cookies enabled.'
@@ -19,7 +19,7 @@ en:
 
 de:
   name: kzeen wo ist die 🍕?
-  short_name: 🍕?
+  short_name: kzeen 🍕
 
   mode:
   time:
