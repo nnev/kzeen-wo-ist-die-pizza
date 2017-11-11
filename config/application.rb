@@ -18,7 +18,7 @@ module KzeenWoIstDiePizza
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.yml').to_s]
     config.i18n.available_locales = [:en, :de]
 
-
+    config.time_zone = 'Europe/Berlin'
     config.tip_percent = 6
 
     # end with trailing slash

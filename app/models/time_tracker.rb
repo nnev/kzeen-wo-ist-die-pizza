@@ -19,7 +19,7 @@ class TimeTracker
   # returns formatted time of arrival, optionally accepting a strftime parameter
   # if the format needs to be something else.
   def estimate_arrival(strftime = '%H:%M')
-    estimate.strftime(strftime)
+    estimate.in_time_zone('Europe/Berlin').strftime(strftime)
   end
 
   def overdue?
