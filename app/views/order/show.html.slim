@@ -5,9 +5,6 @@
 script
   | var order_id=#{@order.id};
 
-
-
-
 - content_for :navbar do
   li.nav-item.dropdown.d-md-none.categoryDropdown
     / hidden on larger screens
@@ -18,15 +15,16 @@ script
 
 .container
   .row
-    .col-sm-2.sidemenu.d-none.d-md-block
-      ul#scroll-spy-target.nav.flex-column.nav-pills.sticky-top
-        - categories.each do |cat|
-          li.nav-item
-            a.nav-link data-turbolinks="false" href="#category-#{cat.category_id}" = cat.name
-    .col-sm
-      .table-responsive.product-list
-        table.table
-          = render partial: 'shop/category', collection: categories, as: :category
+    - cache 'shop' do
+      .col-sm-2.sidemenu.d-none.d-md-block
+        ul#scroll-spy-target.nav.flex-column.nav-pills.sticky-top
+          - categories.each do |cat|
+            li.nav-item
+              a.nav-link data-turbolinks="false" href="#category-#{cat.category_id}" = cat.name
+      .col-sm
+        .table-responsive.product-list
+          table.table
+            = render partial: 'shop/category', collection: categories, as: :category
 
     .col-md-3.basket-column
       =  render partial: 'show_basket'

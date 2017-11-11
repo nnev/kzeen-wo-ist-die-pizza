@@ -23,28 +23,27 @@ class Remote::Product
   def initialize(branch_id:, product_id:)
     @branch_id = branch_id
     @product_id = product_id
-    @data = raw['d']
   end
 
   attr_reader :product_id
 
   def description
-    @data['description']
+    data['description']
   end
 
   def name
-    @data['name']
+    data['name']
   end
 
   def min_price
     # Note: lowest_price* fields given on the root level refer to either the last
     # or the maximum price. So instead we have to go through the sizes.
-    # @data['lowest_price_delivery'] || @data['lowest_price'] || @data['lowest_price_selfcollect']
-    @data['sizes'].values.pluck('delivery_price').min
+    # data['lowest_price_delivery'] || data['lowest_price'] || data['lowest_price_selfcollect']
+    data['sizes'].values.pluck('delivery_price').min
   end
 
   def sizes
-    @data['sizes'].values.map do |xx|
+    data['sizes'].values.map do |xx|
       price = xx['delivery_price'] || xx['self_collector_price']
       { size_id: xx['pos'], name: xx['name'], price: price }
     end
@@ -56,7 +55,7 @@ class Remote::Product
   end
 
   def basic_ingredients # TODO: fugly
-    @data['basic_ingredients_groups'].map do |group_id, group|
+    data['basic_ingredients_groups'].map do |group_id, group|
       if group['max_quan'] != group['free_quan']
         # Note: we ignore min_quan. So does the official web, by the way :)
         raise 'Different amounts of basic ingredients voodoo is not implemented'
@@ -67,7 +66,7 @@ class Remote::Product
           raise 'Cannot handle base ingredients that cost money'
         end
 
-        details = @data['ingredient_basics_with_details'][ingred_id] || {}
+        details = data['ingredient_basics_with_details'][ingred_id] || {}
         desc = desc_if_different(details['description'], ingred['name'])
         {
           ingred_id:   ingred_id.to_i,
@@ -86,12 +85,12 @@ class Remote::Product
   end
 
   def basic_ingredient_ids
-    @data['basic_ingredients_groups'].keys.map(&:to_i)
+    data['basic_ingredients_groups'].keys.map(&:to_i)
   end
 
   def named_basic_ingredients(selection)
     selection[:basic_ingred].map do |group_id, ingred_ids|
-      ingreds = @data['basic_ingredients_groups'][group_id.to_s]['ingredients']
+      ingreds = data['basic_ingredients_groups'][group_id.to_s]['ingredients']
       ingred_ids.map do |ingred_id|
         ingreds[ingred_id.to_s]['name']
       end
@@ -99,7 +98,7 @@ class Remote::Product
   end
 
   def extra_ingredients
-    ingred = @data['ingredient_extras_with_details'].map do |ingred_id, xx|
+    ingred = data['ingredient_extras_with_details'].map do |ingred_id, xx|
       {
         ingred_id: ingred_id.to_i,
         name:      xx['name'],
@@ -113,25 +112,29 @@ class Remote::Product
   end
 
   def extra_ingredient_ids
-    @data['ingredient_extras_with_details'].keys.map(&:to_i)
+    data['ingredient_extras_with_details'].keys.map(&:to_i)
   end
 
   def named_extra_ingredients(selection)
     xx = selection[:extra_ingred].map(&:to_s)
-    @data['ingredient_extras_with_details'].slice(*xx).values.pluck('name')
+    data['ingredient_extras_with_details'].slice(*xx).values.pluck('name')
   end
 
   def price(selection)
     base = self.sizes.detect { |xx| xx[:size_id] == selection[:size] }[:price]
 
     xx = selection[:extra_ingred].map(&:to_s)
-    extras = @data['ingredient_extras_with_details'].slice(*xx).values
+    extras = data['ingredient_extras_with_details'].slice(*xx).values
     cost = extras.pluck('price_of_ingredient_for_size').pluck(selection[:size].to_s).pluck('p')
 
     base + cost.sum
   end
 
   private
+
+  def data
+    @data ||= raw['d']
+  end
 
   def sort_by_name!(arr)
     arr.sort_by! { |xx| remove_lowercase_words(xx['name'] || xx[:name]) }

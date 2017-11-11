@@ -27,7 +27,7 @@ class BasketController < ApplicationController
   end
 
   def unsubmit
-    @basket.update_attribute(:submitted, nil)
+    @basket.update_attribute(:submitted_at, nil)
     flash[:info] = t 'basket.controller.reopened'
     redirect_to vanity_basket_path
   end
