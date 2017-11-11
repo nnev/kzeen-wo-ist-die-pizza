@@ -1,0 +1,26 @@
+[Unit]
+Description="kzeen wo ist die Pizza?" is our food group ordering system
+After=network.target network-online.target
+Wants=network-online.target
+
+[Service]
+User=kzeenpizza
+WorkingDirectory=/var/www/pizza.noname-ev.de/
+
+Environment=RAILS_ENV=production
+Environment=RAILS_LOG_TO_STDOUT=1
+
+TimeoutStartSec=20min
+ExecStartPre=/usr/bin/bundle install --without test,development --deployment --local -j 8
+ExecStartPre=/usr/bin/bundle exec rails assets:precompile
+ExecStartPre=/usr/bin/bundle exec rails db:migrate
+ExecStart=/usr/bin/bundle exec rails server -b localhost -p 10003
+
+Restart=always
+Type=simple
+
+CPUQuota=80%
+MemoryMax=300M
+
+[Install]
+WantedBy=multi-user.target

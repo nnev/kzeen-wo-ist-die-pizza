@@ -21,3 +21,10 @@
 /yarn-error.log
 
 .byebug_history
+
+# Ignore encrypted secrets key file.
+/config/secrets.yml.key
+
+# Ignore deployment/production build artifacts
+/public/assets/*
+/vendor/bundle/*

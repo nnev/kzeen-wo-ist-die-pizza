@@ -1,8 +1,6 @@
 namespace :retriever do
-  desc "Downloads fresh copies of store config JSON files."
-  task refresh: :environment do
-    JsonCache.destroy_all
-
+  desc "Ensures all store config JSON files are cached."
+  task retrieve: :environment do
     br = ::Remote::Branch.main
     list = br.categories.each do |cat|
       cat.products.each do |prod|
@@ -10,5 +8,11 @@ namespace :retriever do
         puts "#{br.name} / #{cat.name} / #{prod.name}"
       end
     end
+  end
+
+  desc "Downloads fresh copies of store config JSON files."
+  task refresh: :environment do
+    JsonCache.destroy_all
+    Rake::Task['retriever:retrieve'].execute
   end
 end

@@ -1,0 +1,65 @@
+# vim:ts=4:sw=4:et:ft=nginx
+# pizza
+
+upstream pizza {
+    server 127.0.0.1:10003;
+}
+
+# used for proper streaming through nginx. Requires nginx 1.3.13+.
+map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      close;
+}
+
+server {
+    listen 79.140.42.102:80;
+    listen [2001:4d88:2000:17::2]:80;
+
+    root /var/www/pizza.noname-ev.de/public;
+    access_log /var/log/nginx/pizza-access.log combined;
+    error_log /var/log/nginx/pizza-error.log;
+
+    server_name pizza.noname-ev.de pizza.nnev.de;
+
+    include /etc/nginx/letsencrypt-webroot.conf;
+
+    location / {
+        return 301 https://pizza.noname-ev.de$request_uri;
+    }
+}
+
+server {
+    listen 79.140.42.102:443 ssl http2;
+    listen [2001:4d88:2000:17::2]:443 ssl http2;
+
+    include /etc/nginx/ssl.conf;
+
+    keepalive_timeout 60;
+
+    root /var/www/pizza.noname-ev.de/public;
+    access_log /var/log/nginx/pizza-access.log combined;
+    error_log /var/log/nginx/pizza-error.log;
+
+    server_name pizza.noname-ev.de pizza.nnev.de;
+
+    location / {
+        proxy_pass http://pizza;
+        proxy_set_header  X-Real-IP  $remote_addr;
+        proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header  X-Forwarded-Proto $scheme;
+
+        proxy_set_header  Host $http_host;
+        proxy_redirect    off;
+
+        # required for proper streaming. Requires nginx 1.3.13+
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+
+    location ~ ^/assets/ {
+        gzip_static on;
+        # nginx does not add immutable flag on its own
+        add_header Cache-Control "public, max-age=31536000, immutable";
+    }
+}
