@@ -1,0 +1,5 @@
+language: ruby
+cache: bundler
+script:
+  - bundle exec rake db:setup
+  - bundle exec rake rspec
