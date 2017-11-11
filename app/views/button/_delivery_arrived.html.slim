@@ -1,0 +1,9 @@
+- c = defined?(css) ? css : 'btn btn-outline-secondary'
+
+a[href=url_for([:delivery_arrived, @basket])
+  title=t('button.delivery_arrived.title')
+  class=c
+  data-method="patch"
+  data-remote="true"
+  data-prompt=%({ "message": "#{t('button.delivery_arrived.prompt')}", "param": "arrived_at", "default": "#{@basket.arrived_at || Time.now}" })
+ ] button.delivery_arrived.button

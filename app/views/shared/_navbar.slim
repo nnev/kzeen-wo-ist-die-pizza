@@ -1,6 +1,5 @@
 / make navbar dark when an admin edits someone else's order
 - color       = edits_other_order? ? :dark              : :light
-- vanity_path = edits_other_order? ? order_path(@order) : my_order_path
 - has_navbar_content = !(yield(:navbar).empty?)
 
 
@@ -18,7 +17,7 @@ nav.navbar.navbar-expand.fixed-top class="navbar-#{color} bg-#{color}"
           / hidden on XS screens
           a.nav-link href=root_path navbar.overview
         li.nav-item
-          a.nav-link data-turbolinks=(current_page?(vanity_path) ? 'false' : 'true') href="#{vanity_path}#basket"
+          a.nav-link data-turbolinks=(current_page?(vanity_order_path) ? 'false' : 'true') href="#{vanity_order_path}#basket"
             - if edits_other_order?
               span.d-none.d-sm-block
                 = t('navbar.other_order', nick: @order.nick.possessive)
@@ -31,10 +30,13 @@ nav.navbar.navbar-expand.fixed-top class="navbar-#{color} bg-#{color}"
           / hidden on XS screens, but only if there is other navbar content
           a#navbarDropdown.nav-link.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" navbar.other
           .dropdown-menu aria-labelledby="navbarDropdown" style="z-index:1021"
+            a.dropdown-item href=privacy_path navbar.privacy
+            a.dropdown-item href="https://github.com/nnev/kzeen-wo-ist-die-pizza/issues" navbar.bugs
             - if @is_admin
+              h6.dropdown-header order_table.admin.header
               a.dropdown-item href=toggle_admin_path data-method="patch" data-remote="true" navbar.unbecome_admin
+              = render 'button/toggle_cancelled'
+              = render 'button/submit_group_order'
             - else
               a.dropdown-item href=toggle_admin_path data-method="patch" data-remote="true" data-confirm=t('navbar.become_admin.confirm') navbar.become_admin.link
 
-            a.dropdown-item href=privacy_path navbar.privacy
-            a.dropdown-item href="https://github.com/nnev/kzeen-wo-ist-die-pizza/issues" navbar.bugs

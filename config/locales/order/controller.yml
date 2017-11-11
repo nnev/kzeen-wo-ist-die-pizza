@@ -22,8 +22,6 @@ en:
       cancelled: 'This group order was cancelled. Please ask around what’s going on.'
       already_submitted:
         main: 'This group order has already been submitted. Please talk to whoever submitted the order and phone the delivery service.'
-        has_order: '<br>Here’s what you wanted to order:<br>%{order}'
-
 
       toggle_paid:
         is_paid: '%{nick} order is now marked as paid. Nice!'
@@ -53,9 +51,6 @@ de:
       cancelled: 'Diese Gruppenbestellung wurde abgebrochen. Bitte frag rum was passiert ist.'
       already_submitted:
         main: 'Diese Gruppenbestellung wurde bereits abgeschickt. Bitte rede mit der/dem Verantwortlichen und rufe den Lieferservice an.'
-
-        has_order: '<br>Hier ist nochmal was Du bestellen wolltest:<br>%{order}'
-
 
       toggle_paid:
         is_paid: '%{nick} Bestellung ist jetzt als „bezahlt“ markiert. Nice.'

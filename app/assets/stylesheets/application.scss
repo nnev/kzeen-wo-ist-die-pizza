@@ -113,7 +113,7 @@ body {
 }
 
 
-// RANODM //////////////////////////////////////////////////////////////////////
+// RANDOM //////////////////////////////////////////////////////////////////////
 
 // we need more space on landscape phones, make container filling
 @include media-breakpoint-down(sm) {
@@ -199,6 +199,10 @@ nav {
   min-width: 200px;
 }
 
+#reOrder {
+  margin-bottom: $spacer;
+}
+
 .compact-items {
   column-width: 15rem;
 
@@ -224,5 +228,33 @@ nav {
 
   span {
     display: none;
+  }
+}
+
+#reSubmitted {
+  dl.dl-horizontal {
+    dt {
+      text-align: left;
+      width: 100px;
+      float: left;
+    }
+
+    dd {
+      margin-left: 120px;
+    }
+  }
+
+  time {
+    min-width: 4em;
+    display: inline-block;
+  }
+
+  .delivery-arrived-button {
+    margin-bottom: 0.5*$spacer;
+
+    @include media-breakpoint-up(sm) {
+      margin-bottom: 0;
+      float: right;
+    }
   }
 }

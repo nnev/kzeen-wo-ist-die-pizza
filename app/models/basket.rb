@@ -1,6 +1,8 @@
 class Basket < ApplicationRecord
   has_many :orders
 
+  scope :with_duration, -> { where.not(arrived_at: nil, submitted_at: nil, cancelled: true) }
+
   def self.current
     # baskets submitted more than a day ago are not considered current
     Basket.all.order(created_at: :desc).where(['submitted_at > ? OR submitted_at IS NULL', 1.days.ago]).first
@@ -20,12 +22,12 @@ class Basket < ApplicationRecord
   end
 
   def arrived?
-    arrival.present?
+    arrived_at.present?
   end
 
   def duration
     return nil unless submitted? && arrived?
-    dur = arrival - submitted
+    dur = arrived_at - submitted_at
     return nil if dur < 0
     dur
   end
@@ -49,6 +51,14 @@ class Basket < ApplicationRecord
 
   def sum_unpaid
     sum_orders(orders.unpaid)
+  end
+
+  def estimate
+    dur_per_euro = Basket.with_duration.where.not(id: self.id).map(&:duration_per_euro).compact
+    return nil, 0 if dur_per_euro.empty?
+
+    avg = dur_per_euro.sum.to_f / dur_per_euro.size.to_f
+    return (avg * sum).round, dur_per_euro.size
   end
 
   private

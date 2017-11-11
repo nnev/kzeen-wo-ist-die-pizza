@@ -5,6 +5,7 @@ class OrderController < ApplicationController
 
   before_action :find_or_create_order
   before_action :check_permissions
+  before_action :ensure_basket_editable, except: :toggle_paid
 
   def show
   end
@@ -70,6 +71,17 @@ class OrderController < ApplicationController
     return if @order.nick == @nick
 
     flash[:warn] = I18n.t('order.controller.admin_required')
-    redirect_to :root
+    redirect_to vanity_basket_path
+  end
+
+  def ensure_basket_editable
+    if @basket.cancelled?
+      flash[:error] = I18n.t('order.controller.cancelled')
+      redirect_to vanity_basket_path
+    elsif @basket.submitted?
+      prefix = 'order.controller.already_submitted'
+      flash[:error] = I18n.t("#{prefix}.main")
+      redirect_to vanity_basket_path
+    end
   end
 end

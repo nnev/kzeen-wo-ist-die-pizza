@@ -1,0 +1,41 @@
+- if @basket.arrived?
+  h2 basket.submitted_status.heading_arrived
+- else
+  h2 basket.submitted_status.heading
+
+- tt = TimeTracker.new(@basket)
+
+.delivery-arrived-button class="#{tt.samples == 0 ? 'with-text' : ''}"
+  = render 'button/delivery_arrived'
+
+
+- if tt.samples == 0
+  p basket.submitted_status.no_estimate
+
+dl.dl-horizontal
+  dt basket.submitted_status.submitted
+  dd = time(tt.submitted_at)
+
+  - if tt.samples > 0
+    dt basket.submitted_status.estimate
+    dd = time(tt.estimate)
+
+  - if tt.arrived?
+    dt basket.submitted_status.arrived
+    dd = time(tt.arrived_at)
+
+- if tt.samples > 0
+  .progress title==t('basket.submitted_status.bar.tooltip', time: tt.estimate_arrival)
+    .progress-bar-center
+      - if tt.arrived?
+       = t('basket.submitted_status.bar.done', duration: distance_of_time_in_words(@basket.duration))
+      - elsif tt.overdue?
+        = t('basket.submitted_status.bar.overdue', minutes: tt.overdue_minutes)
+      - else
+        = t('basket.submitted_status.bar.togo', minutes: tt.togo_minutes)
+
+    .progress-bar.bg-success style="width:#{tt.undue_percent}%"
+
+    .progress-bar.bg-warning style="width:#{tt.overdue_percent}%"
+
+

@@ -2,10 +2,10 @@
   = render 'shared/flash'
 
   #reOrder
-  - if @order
-    = render 'my_order'
-  - else
-    = render 'no_order'
+    - if @order
+      = render 'my_order'
+    - else
+      = render 'no_order'
 
   #reSubmitted
     - if @basket.submitted?

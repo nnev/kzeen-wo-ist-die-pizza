@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include ApplicationHelper
+
   protect_from_forgery with: :exception
 
   COOKIE_NICK = '_hipsterpizza_nick'

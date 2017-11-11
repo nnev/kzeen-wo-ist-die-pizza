@@ -1,0 +1,7 @@
+- if @basket.editable?
+  a.dropdown-item href=submit_basket_path(@basket) data-method="patch" data-confirm=t('button.submit_group_order.first_time.confirm') data-no-turbolink="" button.submit_group_order.first_time.text
+
+- elsif !@basket.cancelled? && !@basket.arrived?
+  a.dropdown-item href=submit_basket_path(@basket) data-method="patch" data-confirm=t('button.submit_group_order.first_time.confirm') data-no-turbolink="" button.submit_group_order.retry.text
+
+  a.dropdown-item href=unsubmit_basket_path(@basket) data-method="patch" data-confirm=t('button.submit_group_order.unsubmit.confirm') button.submit_group_order.unsubmit.text

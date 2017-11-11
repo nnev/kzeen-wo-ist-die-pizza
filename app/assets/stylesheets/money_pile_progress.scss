@@ -10,9 +10,18 @@
    0 0 3px #fff;
 
    margin-bottom: 1.5rem;
-   height: auto !important;
+   height: 1.5rem !important;
 
    .progress-bar {
       padding: 0.25rem 0;
+      overflow: hidden;
+      white-space: nowrap;
    }
+
+  .progress-bar-center {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    line-height: 26px - 2px;
+  }
 }

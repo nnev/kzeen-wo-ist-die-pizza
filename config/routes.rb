@@ -26,5 +26,14 @@ Rails.application.routes.draw do
 
   resources :product, only: :show
 
+  resources :basket, only: :show do
+    member do
+      patch :toggle_cancelled
+      patch :delivery_arrived
+      patch :submit
+      patch :unsubmit
+    end
+  end
+
   root to: 'basket#show'
 end

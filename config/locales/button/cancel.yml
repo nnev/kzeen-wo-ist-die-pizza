@@ -3,9 +3,11 @@ en:
     cancel:
       do: 'Cancel Group Order'
       undo: 'Un-Cancel Group Order'
+      confirm: '⚠ Blocks further orders and prevents basket from being submitted.'
 
 de:
   button:
     cancel:
       do: 'Gruppenbestellung abbrechen'
       undo: 'Gruppenbestellung doch fortfahren'
+      confirm: '⚠ Lehnt weitere Bestellungen ab und verhindert Abschicken der Gruppenbestellung.'

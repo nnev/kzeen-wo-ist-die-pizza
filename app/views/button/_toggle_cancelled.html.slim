@@ -1,0 +1,5 @@
+- if @basket.cancelled?
+  a.dropdown-item href=toggle_cancelled_basket_path(@basket) data-method="patch" button.cancel.undo
+
+- else
+  a.dropdown-item.text-danger href=toggle_cancelled_basket_path(@basket) data-method="patch" data-confirm=t('button.cancel.confirm') button.cancel.do
