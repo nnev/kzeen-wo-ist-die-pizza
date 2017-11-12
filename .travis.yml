@@ -3,7 +3,9 @@ cache: bundler
 bundler_args: --deployment --local -j 4
 script:
   - bundle exec rake db:setup
-  - bundle exec rspec
+  - bundle exec rspec --exclude-pattern spec/features/*
   - bundle exec rake assets:precompile
-addons:
-  chrome: stable
+notifications:
+  email:
+    on_success: never # default: change
+    on_failure: change # default: always

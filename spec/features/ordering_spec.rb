@@ -8,6 +8,7 @@ feature 'ordering process', js: true do
     visit '/'
     click_on 'New Order'
 
+
     # order page
     fill_in('nick', with: nick)
     click_on 'Set Nickname'
@@ -21,8 +22,8 @@ feature 'ordering process', js: true do
     end
 
     # make a hipster pizza
-    expect(page).not_to have_content 'Mittel' # wait for load
-    choose 'Mittel'
+    expect(page).to have_content 'Mittel' # wait for load
+    choose 'Mittel'; choose 'Mittel' # sometimes doesn't accept on first try?!
     check 'Ananas'
     check 'Feta'
     click_on 'Add To Order'
@@ -33,6 +34,7 @@ feature 'ordering process', js: true do
     expect(order.order).to eq [{"product_id"=>184487, "size"=>12956, "extra_ingred"=>[20, 246], "basic_ingred"=>{}}]
 
     # go back to basket
+    sleep 1
     click_on 'Overview'
     expect(page).to have_content 'You still need to pay'
 
