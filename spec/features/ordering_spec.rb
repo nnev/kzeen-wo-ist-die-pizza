@@ -10,6 +10,7 @@ feature 'ordering process', js: true do
 
 
     # order page
+    sleep 5
     fill_in('nick', with: nick)
     click_on 'Set Nickname'
 
