@@ -7,5 +7,7 @@ script:
   - bundle exec rake assets:precompile
 addons:
   apt:
+    sources:
+      - google-chrome
     packages:
-      - chromium-driver
+      - google-chrome-stable
