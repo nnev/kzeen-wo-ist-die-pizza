@@ -7,7 +7,7 @@ class Basket < ApplicationRecord
 
   def self.current
     # baskets submitted more than a day ago are not considered current
-    @current_basket ||= Basket.all.order(created_at: :desc).where(['submitted_at > ? OR submitted_at IS NULL', 1.day.ago.midnight]).first
+    Basket.all.order(created_at: :desc).where(['submitted_at > ? OR submitted_at IS NULL', 1.day.ago.midnight]).first
   end
 
   def self.current_or_create
