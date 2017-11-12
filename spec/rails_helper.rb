@@ -75,6 +75,6 @@ Capybara.register_driver :headless_chrome do |app|
 end
 
 # for running tests
-Capybara.javascript_driver = :headless_chrome
+# Capybara.javascript_driver = :headless_chrome
 # for debugging. Ensure to focus the window!
-# Capybara.javascript_driver = :chrome
+Capybara.javascript_driver = :chrome
