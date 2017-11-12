@@ -2,6 +2,7 @@ language: ruby
 cache: bundler
 bundler_args: --deployment --local -j 4
 script:
+  - export PATH=$PATH:/usr/lib/chromium-browser/
   - bundle exec rake db:setup
   - bundle exec rspec
   - bundle exec rake assets:precompile
