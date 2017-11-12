@@ -21,8 +21,17 @@ class BasketController < ApplicationController
   end
 
   def submit
-    # TODO: implement me
+    @static = Rails.application.config.x.pdf
+
     @basket.update!(submitted_at: Time.now)
+
+    binary = render_to_string 'fax.pdf'
+    IO.binwrite(pdf_path, binary)
+
+    flash[:warn] = t('basket.controller.saved_pdf', path: pdf_path).html_safe
+  rescue => err
+    handle_err(err)
+  ensure
     redirect_to vanity_basket_path
   end
 
@@ -42,11 +51,26 @@ class BasketController < ApplicationController
     redirect_to vanity_basket_path
   end
 
+  def pdf
+    @static = Rails.application.config.x.pdf
+    fn = File.basename(pdf_path)
+    response.headers['Content-Disposition'] = %(INLINE; FILENAME="#{fn}")
+    response.headers['Content-Type'] = 'application/pdf'
+    render 'fax.pdf'
+  end
+
   private
 
   def require_admin
     return if @is_admin
     flash[:error] = t 'basket.controller.not_admin'
     redirect_to vanity_basket_path
+  end
+
+  def pdf_path
+    path = Rails.application.config.x.pdf[:save_path]
+      .sub('{timestamp}', Time.now.to_i.to_s)
+      .sub('{basket_id}', @basket.id.to_s)
+      .sub('{shop_fax}', Rails.application.config.shop_fax)
   end
 end

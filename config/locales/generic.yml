@@ -1,4 +1,5 @@
 en:
+  unhandled_error: 'Encountered unhandled “%{message}” error. Details have been logged, you can grep for them using <code>%{reference}</code>. (E.g. <code>journalctl -n 5000 -u kzeenpizza.service | grep --after-context=50 %{reference}</code>)'
   name: kzeen where is the 🍕?
   short_name: kzeen 🍕
 
@@ -18,6 +19,7 @@ en:
   toggle_failed: 'Could not carry out your actions for unknown reasons. Ask a developer.'
 
 de:
+  unhandled_error: 'Unbehandelter Fehler „%{message}“ aufgetreten. Details wurden geloggt; mit <code>%{reference}</code> kann nach ihnen gegrepped werden. (Etwa: <code>journalctl -n 5000 -u kzeenpizza.service | grep --after-context=50 %{reference}</code>'
   name: kzeen wo ist die 🍕?
   short_name: kzeen 🍕
 

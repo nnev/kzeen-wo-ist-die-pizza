@@ -13,11 +13,11 @@ class Remote::Product
     # note: we don't care about double-reads on race-conditions
     @raw.fetch_or_store("bra#{branch_id}_pro#{product_id}") do
       JsonCache.get("get-single-product/#{branch_id}/#{product_id}")
-    end
+    end.freeze
   end
 
   def raw
-    self.class.raw(branch_id: @branch_id, product_id: @product_id)
+    self.class.raw(branch_id: @branch_id, product_id: @product_id).freeze
   end
 
   def initialize(branch_id:, product_id:)
@@ -28,30 +28,30 @@ class Remote::Product
   attr_reader :product_id
 
   def description
-    data['description']
+    data['description'].freeze
   end
 
   def name
-    data['name']
+    data['name'].freeze
   end
 
   def min_price
     # Note: lowest_price* fields given on the root level refer to either the last
     # or the maximum price. So instead we have to go through the sizes.
     # data['lowest_price_delivery'] || data['lowest_price'] || data['lowest_price_selfcollect']
-    data['sizes'].values.pluck('delivery_price').min
+    data['sizes'].values.pluck('delivery_price').min.freeze
   end
 
   def sizes
     data['sizes'].values.map do |xx|
       price = xx['delivery_price'] || xx['self_collector_price']
       { size_id: xx['pos'], name: xx['name'], price: price }
-    end
+    end.freeze
   end
 
   def named_size(selection)
     return nil if self.sizes.size <= 1
-    self.sizes.detect { |xx| xx[:size_id] == selection[:size] }[:name]
+    self.sizes.detect { |xx| xx[:size_id] == selection[:size] }[:name].freeze
   end
 
   def basic_ingredients # TODO: fugly
@@ -81,7 +81,7 @@ class Remote::Product
         allowed_count: group['free_quan'],
         description:   group['description']
       }
-    end
+    end.freeze
   end
 
   def basic_ingredient_ids
@@ -108,16 +108,16 @@ class Remote::Product
         end]
       }
     end
-    sort_by_name!(ingred)
+    sort_by_name!(ingred).freeze
   end
 
   def extra_ingredient_ids
-    data['ingredient_extras_with_details'].keys.map(&:to_i)
+    data['ingredient_extras_with_details'].keys.map(&:to_i).freeze
   end
 
   def named_extra_ingredients(selection)
     xx = selection[:extra_ingred].map(&:to_s)
-    data['ingredient_extras_with_details'].slice(*xx).values.pluck('name')
+    data['ingredient_extras_with_details'].slice(*xx).values.pluck('name').freeze
   end
 
   def price(selection)
@@ -133,7 +133,7 @@ class Remote::Product
   private
 
   def data
-    @data ||= raw['d']
+    @data ||= raw['d'].freeze
   end
 
   def sort_by_name!(arr)

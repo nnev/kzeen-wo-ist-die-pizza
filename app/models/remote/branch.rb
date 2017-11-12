@@ -4,11 +4,11 @@ class Remote::Branch
   @main = nil
 
   def self.raw
-    @raw ||= JsonCache.get('get-branches')
+    @raw ||= JsonCache.get('get-branches').freeze
   end
 
   def self.main
-    @main ||= self.new(branch_id: Rails.application.config.shop_branch_id)
+    @main ||= self.new(branch_id: Rails.application.config.shop_branch_id).freeze
   end
 
   def initialize(branch_id:)
@@ -20,15 +20,15 @@ class Remote::Branch
   attr_reader :branch_id
 
   def name
-    @data['name']
+    @data['name'].freeze
   end
 
   def phone
-    @data['tel']
+    @data['tel'].freeze
   end
 
   def categories
-    ::Remote::Category.all(branch_id: @branch_id)
+    ::Remote::Category.all(branch_id: @branch_id).freeze
   end
 
   def address

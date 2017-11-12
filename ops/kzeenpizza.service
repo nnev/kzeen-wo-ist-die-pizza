@@ -14,6 +14,7 @@ TimeoutStartSec=20min
 ExecStartPre=/usr/bin/bundle install --without test,development --deployment --local -j 8
 ExecStartPre=/usr/bin/bundle exec rails assets:precompile
 ExecStartPre=/usr/bin/bundle exec rails db:migrate
+ExecStartPre=/usr/bin/bundle exec rails retriever:retrieve
 ExecStart=/usr/bin/bundle exec rails server -b localhost -p 10003
 
 Restart=always

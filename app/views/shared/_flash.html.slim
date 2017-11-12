@@ -1,8 +1,15 @@
-- if flash[:error]
-  .alert.alert-danger == flash[:error]
-- if flash[:warn]
-  .alert.alert-warning == flash[:warn]
-- if flash[:success]
-  .alert.alert-success == flash[:success]
-- if flash[:info]
-  .alert.alert-info == flash[:info]
+- msgs = flash.to_h
+
+- if msgs['error']
+  .alert.alert-danger == msgs.delete('error')
+- if msgs['warn']
+  .alert.alert-warning == msgs.delete('warn')
+- if msgs['success']
+  .alert.alert-success == msgs.delete('success')
+- if msgs['info']
+  .alert.alert-info == msgs.delete('info')
+
+- if msgs.any?
+  .alert.alert-danger
+    ' Found unsupported flash message:
+    = msgs.inspect

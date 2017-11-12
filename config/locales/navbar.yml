@@ -1,5 +1,6 @@
 en:
   navbar:
+    render_pdf: Render as PDF
     overview: Overview
     my_order: My Order
     other_order: "%{nick} Order"
@@ -14,6 +15,7 @@ en:
 
 de:
   navbar:
+    render_pdf: Als PDF anzeigen
     overview: Übersicht
     my_order: Meine Bestellung
     other_order: "%{nick} Bestellung"
