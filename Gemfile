@@ -31,11 +31,15 @@ gem 'prawn-table', '0.2.1'
 gem 'prawn-rails', '0.1.0'
 
 group :development, :test do
-  # Adds support for Capybara system testing and selenium driver
-  # gem 'capybara', '~> 2.13'
-  # gem 'selenium-webdriver'
   gem 'pry-rails'
   gem 'rspec-rails'
+end
+
+group :test do
+  # https://robots.thoughtbot.com/headless-feature-specs-with-chrome
+  gem 'capybara'
+  gem 'capybara-selenium'
+  # gem 'chromedriver-helper' # only needed if there's no `chromium-driver` package for your OS
 end
 
 group :development do

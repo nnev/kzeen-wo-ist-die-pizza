@@ -55,3 +55,26 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 end
+
+
+# https://robots.thoughtbot.com/headless-feature-specs-with-chrome
+require "selenium/webdriver"
+
+Capybara.register_driver :chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+
+Capybara.register_driver :headless_chrome do |app|
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+    chromeOptions: { args: %w(headless disable-gpu) }
+  )
+
+  Capybara::Selenium::Driver.new app,
+    browser: :chrome,
+    desired_capabilities: capabilities
+end
+
+# for running tests
+Capybara.javascript_driver = :headless_chrome
+# for debugging. Ensure to focus the window!
+#Capybara.javascript_driver = :chrome
