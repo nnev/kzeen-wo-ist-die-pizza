@@ -28,6 +28,23 @@ git add Gemfile Gemfile.lock vendor/cache/*
 git commit -m "Updated gems"
 ```
 
+## Testing
+
+You should be able to run/build using the included Dockerfile to run all tests:
+
+```
+docker build -t kzeenpizza -f ops/Dockerfile .
+```
+
+Otherwise, this should get you started:
+
+```
+export RAILS_ENV=test
+bundle exec rails db:migrate
+bundle exec rspec
+bundle exec rails assets:precompile
+```
+
 ## Deployment
 
 See the example files in the `ops/` directory. Note that by default kzeenpizza listens on `localhost:10003`.
