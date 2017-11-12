@@ -26,13 +26,10 @@ feature 'ordering process', js: true do
     choose 'Mittel'; choose 'Mittel' # sometimes doesn't accept on first try?!
     check 'Ananas'
     check 'Feta'
-    save_screenshot '1.png'
     click_on 'Add To Order'
-    save_screenshot '2.png'
 
     # wait for basket to be updated
     expect(page).to have_css('#basket-sum', text: '9,40 €')
-    save_screenshot '3.png'
     order = Order.find_by(nick: nick)
     expect(order.order).to eq [{"product_id"=>184487, "size"=>12956, "extra_ingred"=>[20, 246], "basic_ingred"=>{}}]
 

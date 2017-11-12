@@ -1,13 +1,11 @@
 language: ruby
 cache: bundler
 bundler_args: --deployment --local -j 4
+before_install:
+  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 script:
-  - export PATH=$PATH:/usr/lib/chromium-browser/
   - bundle exec rake db:setup
   - bundle exec rspec
   - bundle exec rake assets:precompile
 addons:
-  apt:
-    packages:
-      # - chromium-driver  # newer releases
-      - chromium-chromedriver
+  chrome: stable
