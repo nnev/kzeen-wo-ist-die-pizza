@@ -17,4 +17,4 @@ ADD . /app/
 
 RUN bundle exec rails assets:precompile
 RUN bundle exec rails db:migrate
-#RUN RAILS_ENV=test bundle exec rspec
+RUN RAILS_ENV=test bundle exec rspec
