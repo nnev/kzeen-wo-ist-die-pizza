@@ -1,8 +1,9 @@
 sudo: required
-language: ruby
-
 services:
   - docker
-
 script:
   - docker build -t kzeenpizza -f ops/Dockerfile .
+notifications:
+  email:
+    on_success: never # default: change
+    on_failure: change # default: always
