@@ -41,9 +41,12 @@ Otherwise, this should get you started:
 ```
 export RAILS_ENV=test
 bundle exec rails db:migrate
-bundle exec rspec
+bundle exec rspec --exclude-pattern spec/features/*
 bundle exec rails assets:precompile
 ```
+
+##### Acceptance Tests / Headless Browsers
+Acceptance tests are a bit more tricky. You'll either need Chrome/Chromium 61+ or Firefox 57+. The necessary drivers are installed through gems. To select which browser you'd like to run the tests with, and if to run in headless or net, edit the `spec/rails_helper.rb` file and edit `Capybara.javascript_driver`. Then you can run tests normally through `bundle exec rspec`.
 
 ## Deployment
 
