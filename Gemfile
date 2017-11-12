@@ -39,7 +39,7 @@ group :test do
   # https://robots.thoughtbot.com/headless-feature-specs-with-chrome
   gem 'capybara'
   gem 'capybara-selenium'
-  gem 'chromedriver-helper' # only needed if there's no `chromium-driver` package for your OS
+  # gem 'chromedriver-helper' # only needed if there's no `chromium-driver` package for your OS
 end
 
 group :development do
