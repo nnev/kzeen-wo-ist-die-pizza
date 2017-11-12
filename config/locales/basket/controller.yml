@@ -1,6 +1,7 @@
 en:
   basket:
     controller:
+      saved_pdf: '<strong>Manual Action Required:</strong> A PDF has been saved to <code>%{path}</code>. There is no service yet that automatically submits the PDF. Please do that manually. The basket has been closed, though, so no changes may be made.'
       reopened: 'Basket has been reopened and further orders may be made.'
 
       create:
@@ -17,6 +18,8 @@ en:
 de:
   basket:
     controller:
+      saved_pdf: '<strong>Manual Action Required:</strong> A PDF has been saved to <code>%{path}</code>. There is no service yet that automatically submits the PDF. Please do that manually. The basket has been closed, though, so no changes may be made.'
+
       reopened: 'Warenkorb wurde wieder geöffnet, weitere Bestellung sind möglich.'
 
       create:
