@@ -41,6 +41,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'chromedriver-helper'
   gem 'geckodriver-helper'
+  gem 'headless'
 end
 
 group :development do
