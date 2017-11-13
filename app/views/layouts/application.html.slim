@@ -12,6 +12,9 @@ html
       - if defined?(@order) && @order
           | var order_id=#{@order.id};
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    - if Rails.env.test?
+      style * { transition: none !important; }
+
   body data-offset="0" data-spy="scroll" data-target="#scroll-spy-target"
 
     - if Rails.env.development?

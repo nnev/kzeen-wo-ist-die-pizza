@@ -1,4 +1,4 @@
-FROM debian:unstable
+FROM debian:unstable-slim
 
 ENV RAILS_LOG_TO_STDOUT 1
 ARG RAILS_ENV=test
