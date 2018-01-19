@@ -46,6 +46,7 @@ pdf.move_down 10
 
 orders_table = [[
   "Produkt",
+  {content: "Größe"    ,    align: :left},
   {content: "Preis (€)",    align: :right},
   {content: "Beschriftung", align: :right}
 ]]
@@ -55,6 +56,7 @@ newline = "\n#{Prawn::Text::NBSP*4} "
   order.order.each do |item|
     prod = ::Remote::Product.new(branch_id: order.branch_id, product_id: item[:product_id])
     plain = "#{prod.name}"
+    size = "#{prod.named_size(item)}"
 
     if item[:basic_ingred].any?
       prod.named_basic_ingredients(item).each.with_index do |names, idx|
@@ -70,12 +72,12 @@ newline = "\n#{Prawn::Text::NBSP*4} "
 
     price   = {content: €(prod.price(item)), align: :right}
     nick_id = {content: order.nick_id,       align: :right}
-    orders_table << [plain, price, nick_id]
+    orders_table << [plain, size, price, nick_id]
   end
 end
 
 last = orders_table.size-1
-pdf.table(orders_table, column_widths: [380, 65, 90], header: true) do
+pdf.table(orders_table, column_widths: [280, 100, 65, 90], header: true) do
   cells.padding = 8
   cells.borders = []
   row(0..last).borders = [:top]
