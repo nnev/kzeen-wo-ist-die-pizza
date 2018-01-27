@@ -1,5 +1,9 @@
 input type="hidden" name="product_id" value=@product.product_id
 
+- if @product.description.present?
+  p.text-secondary = @product.description
+  hr
+
 - if @product.sizes.count >= 2
   - @product.sizes.each.with_index do |size, index|
     div.form-check.size-selector
