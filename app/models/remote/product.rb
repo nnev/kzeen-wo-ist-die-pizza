@@ -123,8 +123,10 @@ class Remote::Product
   def price(selection)
     base = self.sizes.detect { |xx| xx[:size_id] == selection[:size] }[:price]
 
-    xx = selection[:extra_ingred].map(&:to_s)
-    extras = data['ingredient_extras_with_details'].slice(*xx).values
+    selected_extras = selection[:extra_ingred].map(&:to_s)
+    return base if selected_extras.empty?
+
+    extras = data['ingredient_extras_with_details'].slice(*selected_extras).values
     cost = extras.pluck('price_of_ingredient_for_size').pluck(selection[:size].to_s).pluck('p')
 
     base + cost.sum
