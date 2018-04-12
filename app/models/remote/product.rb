@@ -112,9 +112,7 @@ class Remote::Product
   end
 
   def extra_ingredient_ids
-    if data['ingredient_extras_with_details'].nil?
-      return []
-    end
+    return [] unless data['ingredient_extras_with_details'].is_a?(Hash)
     data['ingredient_extras_with_details'].keys.map(&:to_i).freeze
   end
 
