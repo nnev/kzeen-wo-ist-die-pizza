@@ -55,8 +55,11 @@ newline = "\n#{Prawn::Text::NBSP*4} "
 @basket.orders.sorted.each do |order|
   order.order.each do |item|
     prod = ::Remote::Product.new(branch_id: order.branch_id, product_id: item[:product_id])
-    plain = "#{prod.name}"
     size = "#{prod.named_size(item)}"
+
+    plain = ""
+    plain << "EXTRAWUNSCH: #{order.comment}\n\n" if order.comment.present?
+    plain << prod.name
 
     if item[:basic_ingred].any?
       prod.named_basic_ingredients(item).each.with_index do |names, idx|

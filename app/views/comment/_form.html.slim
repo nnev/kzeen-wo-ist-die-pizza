@@ -1,0 +1,27 @@
+= form_tag("will_be_set_on_show", method: :patch, class: 'modal fade text-left', id: 'commentForm', role: 'dialog', tabindex: '-1', aria_hidden: 'true')
+  .modal-dialog.modal-m
+    .modal-content
+      .modal-header
+        h4.modal-title comment.form.title
+        button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+
+      .modal-body.text-right
+        datalist id="comments"
+          option value="ohne Käse (vegan, nur pflanzlich)"
+          option value="glutenfrei (Allergiker)"
+
+        .form-group>
+          input.form-control> autocomplete="off" list="comments" name="comment" maxlength="255" id="commentInput" placeholder=t('comment.form.placeholder')
+
+        button.btn.btn-outline-secondary> type="button" data-dismiss="modal" aria-hidden="true" comment.form.abort
+        button.btn.btn-primary data-disable-with=t('comment.form.saving') type="submit" comment.form.save
+
+script
+  | var form = $("#commentForm");
+  | var input = $("#commentInput");
+  | form.on("show.bs.modal", function(e) {
+  |   var url = $(e.relatedTarget).attr("href");
+  |   form.attr("action", url);
+  |   var prevcomment = $(e.relatedTarget).attr("data-comment");
+  |   input.val(prevcomment);
+  | })

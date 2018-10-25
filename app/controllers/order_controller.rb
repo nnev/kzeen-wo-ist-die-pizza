@@ -15,6 +15,11 @@ class OrderController < ApplicationController
     redirect_to :root
   end
 
+  def set_comment
+    @order.update_attribute(:comment, params[:comment].presence&.strip)
+    redirect_to :root
+  end
+
   def item_create
     @order.add_item(permitted_params)
     save_items

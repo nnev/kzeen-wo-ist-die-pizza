@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171110112701) do
+ActiveRecord::Schema.define(version: 20181025171226) do
 
   create_table "baskets", force: :cascade do |t|
     t.datetime "submitted_at"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20171110112701) do
     t.text "order"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "comment", limit: 255
     t.index ["nick", "basket_id"], name: "index_orders_on_nick_and_basket_id", unique: true
   end
 

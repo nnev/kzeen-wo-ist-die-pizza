@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       get    '',            to: 'order#show',        as: :order
       delete '',            to: 'order#destroy'
       patch  'toggle_paid', to: 'order#toggle_paid', as: :order_toggle_paid
+      patch  'set_comment', to: 'order#set_comment'
 
       # not user visible, thus no vanity routing
       post   'item/create', to: 'order#item_create'

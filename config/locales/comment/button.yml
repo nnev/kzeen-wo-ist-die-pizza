@@ -1,0 +1,21 @@
+en:
+  comment:
+    form:
+      placeholder: without cheese, gluten-free…
+      title: Add special requests to order
+      abort: keep current comment
+      save: Set Comment
+      saving: Saving…
+    button:
+      add: 🗨 Special Requests
+
+de:
+  comment:
+    form:
+      placeholder: without cheese, gluten-free…
+      title: Extrawünsche zur Bestellung
+      abort: alten Kommentar behalten
+      save: Kommentar speichern
+      saving: Speichern…
+    button:
+      add: 🗨 Extrawünsche

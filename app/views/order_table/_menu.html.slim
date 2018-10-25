@@ -20,4 +20,6 @@
       - if @basket.editable?
         a.dropdown-item href=order_path(order) basket.my_order.edit.text
 
+        = render "comment/menu_entry", order: order
+
         a.dropdown-item.text-danger href=order_path(order) data-method="delete" data-confirm=t('order_table.admin.delete_confirm', nick: order.nick.possessive) basket.my_order.destroy.text
