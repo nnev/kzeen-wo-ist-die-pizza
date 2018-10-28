@@ -14,7 +14,7 @@ module ApplicationHelper
   def vanity_order_path
     if edits_other_order?
       order_path(order_id: @order.id)
-    elsif Basket.current.id == @basket.id
+    elsif Basket.current.id == @basket&.id
       my_order_path
     elsif @order
       order_path(order_id: @order.id)
@@ -24,7 +24,7 @@ module ApplicationHelper
   end
 
   def vanity_basket_path
-    return root_path if Basket.current.id == @basket.id
+    return root_path if @basket.nil? || Basket.current.id == @basket.id
     basket_path(@basket)
   end
 end

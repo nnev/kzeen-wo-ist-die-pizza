@@ -27,7 +27,7 @@ html
 
     script
       | var nick=#{raw @nick.to_json};
-      | var basket_id=#{@basket.id};
+      | var basket_id=#{@basket&.id};
       - if defined?(@order) && @order
           | var order_id=#{@order.id};
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'

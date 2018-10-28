@@ -6,14 +6,14 @@ en:
         note: 'Note:'
 
         duration:
-          up_to_one_year: (up to one year)
+          forever: (essentially forever)
           until_clear: (until you clear them)
           depends: (depends)
 
         server:
           header: Server
           basket:
-            details: "Basket: chosen shop, status, timestamps"
+            details: "Basket: status, timestamps"
           order: "Orders: nick, timestamp, product details and prices"
           logs: "Server Logs: page visits with your IP, user agent and timestamp"
 
@@ -22,7 +22,6 @@ en:
         browser:
           header: Browser
           nick: "Nick: Identifies your order. Convenience for next order. Stored in cookie."
-          status: "Status: Internal flow control by kzeen. Stored in cookie."
 
         questions:
           header: Questions?
@@ -36,7 +35,7 @@ de:
         note: 'Hinweis:'
 
         duration:
-          up_to_one_year: (bis zu einem Jahr)
+          forever: (unbegrenzt)
           until_clear: (bis Du sie löschst)
           depends: (kommt drauf an)
 
@@ -52,7 +51,6 @@ de:
         browser:
           header: Browser
           nick: "Nick: Identifiziert Deine Bestellung. Zur Bequemlichkeit bei nächster Bestellung. Wird als Cookie gespeichert."
-          status: "Status: Zur Ablaufsteuerung von kzeen. Wird als Cookie gespeichert."
 
         questions:
           header: Fragen?
