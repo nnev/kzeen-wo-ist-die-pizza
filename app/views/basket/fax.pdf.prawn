@@ -15,6 +15,8 @@ adress_table = [
   ['E-Mail'    , @static[:email]  ],
   ['Erstellt'  , time             ],
   ['Bemerkung' , @static[:text]   ],
+  [''          , @static[:text2] || '' ],
+  [''          , @static[:text3] || '' ],
 ]
 pdf.table(adress_table, column_widths: { 0 => 80 }) do
   cells.padding = 1

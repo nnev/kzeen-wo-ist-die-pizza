@@ -37,5 +37,7 @@ module KzeenWoIstDiePizza
     config.x.pdf.phone   = '015792307561'
     config.x.pdf.email   = 'pizza@noname-ev.de'
     config.x.pdf.text    = 'Kartons bitte beschriften'
+    config.x.pdf.text2   = ''
+    config.x.pdf.text3   = ''
   end
 end
