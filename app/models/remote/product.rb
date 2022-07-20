@@ -36,7 +36,7 @@ class Remote::Product
   end
 
   def name
-    data['name'].freeze
+    data['name'].presence&.freeze || "branch_id=#{@branch_id} product_id=#{@product_id} #{I18n.t('outdated_data')}"
   end
 
   def min_price
@@ -51,6 +51,9 @@ class Remote::Product
       price = xx['delivery_price'] || xx['self_collector_price']
       { size_id: xx['pos'], name: xx['name'], price: price }
     end.freeze
+  rescue => e
+    self.print_invalid_json_error(e)
+    []
   end
 
   def named_size(selection)
@@ -96,7 +99,8 @@ class Remote::Product
     selection[:basic_ingred].map do |group_id, ingred_ids|
       ingreds = data['basic_ingredients_groups'][group_id.to_s]['ingredients']
       ingred_ids.map do |ingred_id|
-        ingreds[ingred_id.to_s]['name']
+        ing = ingreds[ingred_id.to_s]
+        ing ? ing['name'] : "ingredient_id=#{ingred_id} #{I18n.t('outdated_data')}"
       end
     end
   end
@@ -126,7 +130,10 @@ class Remote::Product
   end
 
   def price(selection)
-    base = self.sizes.detect { |xx| xx[:size_id] == selection[:size] }[:price]
+    size = self.sizes.detect { |xx| xx[:size_id] == selection[:size] }
+    return 0.0 if size.nil?
+
+    base = size[:price]
 
     selected_extras = selection[:extra_ingred].map(&:to_s)
     return base if selected_extras.empty?
@@ -138,6 +145,21 @@ class Remote::Product
   end
 
   private
+
+  def print_invalid_json_error(error)
+    Rails.logger.error <<~ERROR
+      invalid product: branch_id=#{@branch_id} product_id=#{@product_id}
+      Does this product still exist?
+      Error
+        #{error.to_s}
+
+      Backtrace
+        #{error.backtrace.join("\n  ")}
+
+      JSON data for this product
+        #{JSON.dump(data)}
+    ERROR
+  end
 
   def data
     @data ||= raw['d'].freeze
