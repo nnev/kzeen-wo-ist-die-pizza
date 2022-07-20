@@ -274,6 +274,3 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   unicode_utils
   web-console (>= 3.3.0)
-
-BUNDLED WITH
-   1.17.2
