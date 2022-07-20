@@ -1,0 +1,13 @@
+name: Test
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run Test Docker container
+        run: docker build -t kzeenpizza -f ops/Dockerfile .
