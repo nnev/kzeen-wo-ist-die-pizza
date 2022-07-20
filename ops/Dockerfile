@@ -1,5 +1,6 @@
 FROM debian:unstable-slim
 
+ENV DEBIAN_FRONTEND=noninteractive
 ENV RAILS_LOG_TO_STDOUT 1
 ARG RAILS_ENV=test
 
@@ -11,7 +12,7 @@ RUN apt-get update -qq \
 
 ADD vendor/cache /app/vendor/cache
 ADD Gemfile Gemfile.lock  /app/
-RUN bundle install --deployment --local -j 8
+RUN bundle config set --local deployment 'true' && bundle install --local -j 8
 
 ADD . /app/
 
