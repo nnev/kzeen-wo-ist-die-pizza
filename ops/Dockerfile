@@ -1,4 +1,4 @@
-FROM debian:unstable-slim
+FROM debian:stable-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV RAILS_LOG_TO_STDOUT 1
@@ -8,7 +8,7 @@ WORKDIR /app
 EXPOSE 10003
 
 RUN apt-get update -qq \
-  && apt-get install -qq bundler firefox libsqlite3-dev libxml2-dev libxslt-dev nodejs ruby ruby-dev zlib1g-dev
+  && apt-get install -qq bundler firefox-esr libsqlite3-dev libxml2-dev libxslt-dev nodejs ruby ruby-dev zlib1g-dev
 
 ADD vendor/cache /app/vendor/cache
 ADD Gemfile Gemfile.lock  /app/
