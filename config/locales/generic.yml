@@ -18,6 +18,8 @@ en:
 
   toggle_failed: 'Could not carry out your actions for unknown reasons. Ask a developer.'
 
+  outdated_data: '(outdated product data?)'
+
 de:
   unhandled_error: 'Unbehandelter Fehler „%{message}“ aufgetreten. Details wurden geloggt; mit <code>%{reference}</code> kann nach ihnen gegrepped werden. (Etwa: <code>journalctl -n 5000 -u kzeenpizza.service | grep --after-context=50 %{reference}</code>'
   name: kzeen wo ist die 🍕?
@@ -35,3 +37,5 @@ de:
   please_wait: '…bitte warten…'
 
   toggle_failed: 'Konnte die gewünschte Aktion nicht durchführen. Frage einen Entwickler.'
+
+  outdated_data: '(Veraltete Produkt Daten?)'
