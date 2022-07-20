@@ -31,7 +31,7 @@ nav.navbar.navbar-expand.fixed-top class="navbar-#{color} bg-#{color}"
           a#navbarDropdown.nav-link.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" navbar.other
           .dropdown-menu aria-labelledby="navbarDropdown" style="z-index:1021"
             - if @basket && @is_admin
-              a.dropdown-item href=pdf_basket_path(@basket) navbar.render_pdf
+              a.dropdown-item target="_blank" href=pdf_basket_path(@basket) navbar.render_pdf
             a.dropdown-item href=privacy_path navbar.privacy
             a.dropdown-item href="https://github.com/nnev/kzeen-wo-ist-die-pizza/issues" navbar.bugs
             - if @is_admin
