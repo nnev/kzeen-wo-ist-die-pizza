@@ -5,7 +5,7 @@ namespace :retriever do
     list = br.categories.each do |cat|
       cat.products.each do |prod|
         # prod.name triggers another call
-        puts "#{br.name} / #{cat.name} / #{prod.name}"
+        puts "#{br.name} / #{cat.name} / #{prod.name} / #{prod.valid? ? "✓" : "INVALID PRODUCT"}"
       end
     end
     warn "====================================================="
