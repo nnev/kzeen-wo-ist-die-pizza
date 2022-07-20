@@ -36,11 +36,8 @@ group :development, :test do
 end
 
 group :test do
-  # https://robots.thoughtbot.com/headless-feature-specs-with-chrome
   gem 'capybara'
-  gem 'selenium-webdriver'
-  gem 'chromedriver-helper'
-  gem 'geckodriver-helper'
+  gem 'webdrivers'
 end
 
 group :development do
