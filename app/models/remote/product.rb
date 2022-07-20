@@ -27,6 +27,10 @@ class Remote::Product
 
   attr_reader :product_id
 
+  def valid?
+    name.present? && data['sizes'].present? && min_price.present? && sizes.present?
+  end
+
   def description
     data['description'].freeze
   end
