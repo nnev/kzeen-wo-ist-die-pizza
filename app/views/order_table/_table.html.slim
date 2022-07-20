@@ -5,7 +5,8 @@ h2 order_table.heading
 
 
 - if @basket.orders.size > 0
-  .table-responsive
+  / ensure the menu fits
+  .table-responsive style="min-height: 20rem"
     table.table
       - if unpaid.any?
         = render 'order_table/head', desc: t('order_table.unpaid_orders'), desc_css: 'text-danger'
