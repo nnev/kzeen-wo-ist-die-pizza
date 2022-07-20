@@ -25,8 +25,10 @@ class BasketController < ApplicationController
 
     @basket.update!(submitted_at: Time.now)
 
-    binary = render_to_string 'fax.pdf'
-    IO.binwrite(pdf_path, binary)
+    I18n.with_locale(:de) do
+      binary = render_to_string 'fax.pdf'
+      IO.binwrite(pdf_path, binary)
+    end
 
     flash[:warn] = t('basket.controller.saved_pdf', path: pdf_path).html_safe
   rescue => err
@@ -56,7 +58,9 @@ class BasketController < ApplicationController
     fn = File.basename(pdf_path)
     response.headers['Content-Disposition'] = %(INLINE; FILENAME="#{fn}")
     response.headers['Content-Type'] = 'application/pdf'
-    render 'fax.pdf'
+    I18n.with_locale(:de) do
+      render 'fax.pdf'
+    end
   end
 
   private
